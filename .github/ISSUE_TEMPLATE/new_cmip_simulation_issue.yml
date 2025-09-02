@@ -13,7 +13,25 @@ body:
         value: |
             ## General Issue Report
 
-            Please provide details about your issue. Please fill out the a Jobs Description Template (can I link to template from here). Reviewer Template to be linked from here?
+            Please provide details about your issue. 
+            Please fill out the a Jobs Description Template (can I link to template from here). 
+            Reviewer Template to be linked from here?
+
+-   id: issue_type
+    attributes:
+        label: Issue Type
+        description: What kind of issue are you reporting?
+        options:
+            - Bug Report
+            - Feature Request
+            - Documentation Issue
+            - Data Quality Issue
+            - Process Improvement
+            - Other
+    validations:
+        required: true
+    type: dropdown
+
 
 
 
