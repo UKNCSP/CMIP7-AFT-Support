@@ -1,8 +1,8 @@
-# Guidance for quality assurance of CMIP7 experiments
+# Guidance for quality assurance of CMIP7 experiments -- DRAFT
 
-In running experiments for a production experiment, the devil is in the detail. There are many things which can go wrong, with expensive consequences. However, there are steps which can be taken to minimise errors, and these are listed in bullet-point form below. The motivation for these is explained in a MIP requirements document written by Jamie Kettleborough and others, but much of it is about science assurance: boring but important tasks to ensure that the experiments (and the science based on them) is publishable and repeatable.
+In running experiments for a production experiment, the devil is in the detail. There are many things which can go wrong, with expensive consequences. However, there are steps which can be taken to minimise errors, and these are listed below. The motivation for these is science assurance: tedious but important tasks to ensure that the experiments (and the science based on them) is publishable and repeatable.
 
-The [Run setup](#run-setup) section outlines how to use trac tickets for each experiment to support the quality assurance.
+The [Run setup](#run-setup) section outlines how to use git issues for each experiment to support quality assurance.
 
 
 ## Experimental design configuration
@@ -11,21 +11,19 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 
 1. Interpret experiment design specification. 
    * Discuss non-trivial choices with other MIP leads to ensure consistency between MIPs where appropriate. 
-   * Document decisions on the UK-CMIP6 trac system; create a wiki page for your MIP under [wiki:MIPDocumentation MIPDocumentation]. 
+   * Document decisions on the CMIP7 github repository; for example, you could create a wiki page for your MIP. 
 1. Develop any MIP-specific code
-   * “Lodge” code in relevant model trunk (UM, NEMO, ...) to ensure that all CMIP6 code has been through appropriate review, and for future-proofing. 
-   * Raise any problems with UKESM core group.
+   * Lodge code in relevant model trunk (UM, NEMO, ...) to ensure that all CMIP7 code has been through appropriate review, and for future-proofing. 
 1. Define diagnostic setup.
-   * Check whether the model is able to produce your key diagnostics, and code up if essential (discuss with UKESM core group). The core group will then liaise with CRIT about implied updates to diagnostic mapping tables.
-   * Document any decisions on diagnostics which you decide not to include or for which you have to deviate from what has been requested. Instructions on documenting such decisions can be found at ukesm:wiki:CMIP6/DiagnosticMappings.
+   * Check whether the model is able to produce your key diagnostics, and code up if essential.
+   * Document any decisions on diagnostics which you decide not to include or for which you have to deviate from what has been requested. 
 1. Download / create forcing data.
    * Liaise with providers in advance of official release if possible to minimise surprises.
    * If you are relying on another MIP to generate forcing data for you, ensure that they are aware of this. 
-   * The ESM core group will coordinate the processing of forcing data for UKESM1 and HadGEM3 DECK, historical and scenarioMIP runs.
    * Avoid breaking up timeseries forcing files (historical/scenario) into e.g. 20-year chunks. It is better to split files by variable than by time period.
    * Ensure that the temporal coverage of forcing data extends beyond the start and end of the runs which will use it. The model interpolates between time records to its present time, so needs a valid field after the end of the run and before the start.
-   * Ensure that all input files are in “central” locations, not user space (UKESM core group / CRIT will advise on specific locations)
-   * There should be some technical and scientific review of all forcing data created for CMIP6 runs, just as for the model jobs themselves.  If it will be used in any DECK experiment, https://code.metoffice.gov.uk/trac/ancil/wiki/CMIP6/ForcingData should be followed, but if not, the project concerned should decide what is appropriate, as long as any science decisions made in defining the forcing are documented.
+   * Ensure that all input files are in central locations, not user space.
+   * There should be some technical and scientific review of all forcing data created for CMIP7 runs, just as for the model jobs themselves.  The MIP should decide what is appropriate, as long as any science decisions made in defining the forcing are documented.
 1. Schedule HPC resources.
    * Outline discussions on HPC resources required for your experiments should begin as early as possible. Points of contact are:
       * Met Office HPC: Jeremy Walton
@@ -103,7 +101,7 @@ fcm switch running
 1. When the run is complete, assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery).
 
 
-## Process and Deliver
+## Process and deliver
 
 1. Add a comment to the `ukcmip6` experiment ticket noting that you are happy that the simulations are scientifically fit for processing.
 2. Ensure that the `rose-suite.info` file has the correct information in it. In particular please check the following fields:
