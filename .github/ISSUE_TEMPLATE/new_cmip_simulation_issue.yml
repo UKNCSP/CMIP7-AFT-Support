@@ -1,0 +1,22 @@
+name: 'General Issue'
+description: 'New Issue for new CMIP7 simulation'
+title: 'Issue: <Brief description here>'
+labels:
+    - HadGEM-GC5-N96ORCA1
+    - HadGEM-GC5-N640ORCA12
+    - UKESM1.3-N96ORCA1
+    - UKESM2.0-N96ORCA1
+body:
+
+-   type: markdown
+    attributes:
+        value: |
+            ## General Issue Report
+
+            Please provide details about your issue.
+            Please fill out the a Jobs Description Template (can I link to template from here)
+
+            Reviewer Template to be linked from here?
+
+
+
