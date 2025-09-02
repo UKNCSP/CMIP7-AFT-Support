@@ -6,11 +6,13 @@ labels:
     - HadGEM-GC5-N640ORCA12
     - UKESM1.3-N96ORCA1
     - UKESM2.0-N96ORCA1
+    
 body:
 
 -   id: Description 
     type: textarea
     attributes:
+        label: Issue Description
         value: |
             ## General Issue Report
 
