@@ -17,8 +17,7 @@ body:
             ## General Issue Report
 
             Please provide details about your issue. 
-            Please fill out the a Jobs Description Template (can I link to template from here). 
-            Reviewer Template to be linked from here?
+            Please fill out the a [Jobs Description Template](https://github.com/UKNCSP/CMIP7-simulations/issues/new?template=new_jobs_page.yml)             Reviewer Template to be linked from here?
 
 -   id: issue_type
     attributes:
