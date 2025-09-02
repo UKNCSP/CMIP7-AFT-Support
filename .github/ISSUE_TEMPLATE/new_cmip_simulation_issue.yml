@@ -8,7 +8,8 @@ labels:
     - UKESM2.0-N96ORCA1
 body:
 
--   type: markdown
+-   id: Description 
+    type: textarea
     attributes:
         value: |
             ## General Issue Report
