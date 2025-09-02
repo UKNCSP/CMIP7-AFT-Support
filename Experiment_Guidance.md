@@ -2,10 +2,10 @@
 
 In running experiments for a production experiment, the devil is in the detail. There are many things which can go wrong, with expensive consequences. However, there are steps which can be taken to minimise errors, and these are listed in bullet-point form below. The motivation for these is explained in a MIP requirements document written by Jamie Kettleborough and others, but much of it is about science assurance: boring but important tasks to ensure that the experiments (and the science based on them) is publishable and repeatable.
 
-The [Run](#run-setup) section outlines how to use trac tickets for each experiment to support the quality assurance.
+The [Run setup](#run-setup) section outlines how to use trac tickets for each experiment to support the quality assurance.
 
 
-## [Experimental design configuration](#expt-design)
+## Experimental design configuration
 
 Although the experimental protocol is set out by the MIP, in practice there are model-specific decisions which need to be made, to interpret and implement the design for our model.
 
@@ -71,7 +71,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 1. If the reviewer finds a problem they should reject the ticket and assign it back to you for setup. When they are happy they should approve assign to you for running and monitoring.
 
 
-== Run and monitor
+## Run and monitor
 
 1. As soon as the run starts, create a branch of the suite called "running" and switch your working copy to point to this branch:
 {{{
@@ -103,7 +103,7 @@ fcm switch running
 1. When the run is complete, assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery).
 
 
-== Process and Deliver
+## Process and Deliver
 
 1. Add a comment to the `ukcmip6` experiment ticket noting that you are happy that the simulations are scientifically fit for processing.
 2. Ensure that the `rose-suite.info` file has the correct information in it. In particular please check the following fields:
