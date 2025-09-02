@@ -1,5 +1,5 @@
-name: New Reviewer Request
-description: Request access to issues in this github repository
+name: New Jobs Request
+description: Job Description Page
 title: "[New Reviewer]: Add Reviewer <github user id>"
 labels: ["NewReviewer"]
 
