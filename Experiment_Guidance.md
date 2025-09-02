@@ -25,16 +25,17 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * Ensure that all input files are in central locations, not user space.
    * There should be some technical and scientific review of all forcing data created for CMIP7 runs, just as for the model jobs themselves.  The MIP should decide what is appropriate, as long as any science decisions made in defining the forcing are documented.
 1. Schedule HPC resources.
-   * Outline discussions on HPC resources required for your experiments should begin as early as possible. Points of contact are:
-      * Met Office HPC: Jeremy Walton
-      * ARCHER: Jonathan Gregory and Steve Woolnough
+   * Outline discussions on HPC resources required for your experiments should begin as early as possible. 
    * Once you have decided which experiments to run, estimate how much resource (CPU time and disk space) all of your runs will require, and ensure that you have access to what you need. For Met Office HPC, agree which queue you will use.
 
 
 ## Run setup
 
-1. Identify reviewers for job setup and arrange likely review dates in advance (to prevent delays due to reviewers being otherwise engaged). You will need a main reviewer (normally another scientist working on your MIP) and a diagnostic reviewer (contact Jamie Kettleborough to ask for someone to be assigned).  **todo: refine the process around diagnostic review in the check points that follow.**
-1. Ensure that ensemble member, forcing and realisation identifiers ("ripf" values) have been defined. MIP leads should liaise with the UK ES-DOC officers on this: Matthew Mizielinski for Met Office runs, TBD for NERC runs. **todo: add recommendation on how to organise this once trialled for HadGEM3 DECK**
+1. Identify reviewers for job setup and arrange likely review dates in advance (to prevent delays due to reviewers being otherwise engaged). You will need a main reviewer (normally another scientist working on your MIP) and a diagnostic reviewer.
+1. Ensure that ensemble member, forcing and realisation identifiers ("ripf" values) have been defined. 
+
+***the following needs updating from TRAC to github***
+
 1. Open a ticket for this experiment ("New Ticket" in the bar above) and set the fields as follows:
    * Milestone -> MIP name (AerChemMIP, C4MIP, ...). Note: milestone "DECKhist" will be used to cover DECK, historical and spinup runs.
    * Component -> Model configuration
