@@ -1,0 +1,134 @@
+name: 'Matt's test issue'
+description: 'New Issue for new CMIP7 simulation'
+title: 'Issue: <Brief description here>'
+labels:
+    - HadGEM-GC5-N96ORCA1
+    - HadGEM-GC5-N640ORCA12
+    - UKESM1.3-N96ORCA1
+    - UKESM2.0-N96ORCA1
+    
+body:
+
+-   id: Description 
+    type: textarea
+    attributes:
+        label: Issue Description
+        value: |
+            ## General Issue Report
+
+            Please provide details about your issue. 
+            Please fill out the a [Jobs Description Template](https://github.com/UKNCSP/CMIP7-simulations/issues/new?template=new_jobs_page.yml)             
+            Reviewers to fill out [Reviewer Template] to be linked from here?
+
+-   id: issue_type
+    attributes:
+        label: Issue Type
+        description: What kind of issue are you reporting?
+        options:
+            - Bug Report
+            - Feature Request
+            - Documentation Issue
+            - Data Quality Issue
+            - Process Improvement
+            - Other
+    validations:
+        required: true
+    type: dropdown
+-   id: review_information
+    type: textarea
+    attributes:
+        label: Review information
+        value: |
+            = ROSE suite [roses-u:log:a/a/0/0/0 suite-id]: experiment name
+
+            Experiment ticket: #<NN>
+            
+            
+            **Owner:**
+            
+            == Description
+            
+            **Configuration:** Earth System/ Coupled AOIL/ Atmosphere-only <delete/ amend as appropriate>
+            
+            ||                          ||=Atmosphere=||= Land   =||= Ocean   =||= Sea ice    =||= Coupled  =||= Ocean BGC =||= Land Ice  =||  
+            || Scientific configuration || GA?.?      || GL?.?    || GO?.?     ||              ||            ||             ||             ||
+            || Code base                || UM?.?      || JULES?.? || NEMO?.?   ||  CICE?       || OASIS? vn? || MEDUSA?.?   || BISICLES?.? ||
+            || Horizontal resolution    || N?         || N?       || ORCA???   ||  n/a         ||            || ORCA???     || ?           ||
+            || Vertical resolution      || L?         || ? levels || L?        ||  n/a         ||            ||             ||             ||
+            
+            **Suite revision for start of run**:
+            
+            **Baseline configuration** <state in the form HadGEM3-GC''x.y''-''resolution''[-''config''] or UKESM''x.y''-''resolution''[-''config'']; follow the [UKESM:wiki:ConfigIntro#UKESMnamingconvention HadGEM3 / UKESM naming convention]>
+            
+            **Baseline configuration suite ID & revision**: <This is the original supported suite from which this job descends. You should be able to copy this from predecessor suite since they share the same original ancestor, but check under [wiki:MIPDocumentation] whether errors have subsequently been found in the original.>
+            
+            **Predecessor suite ID:** <the suite from which this one was directly copied>
+            
+            **Changes from predecessor:** 
+            <text description **and** link to suite log ([roses-u:log:a/a/0/0/0]), so that reviewer can check the suite diffs are consistent with what is intended.>
+            
+            **Initial conditions:** <source run and date>
+            
+            **Dates covered:** <start date and run length>
+            
+            **Other configuration specific settings:** <list changes that make this job 
+            differ from the standard setup, e.g. use climatological dust>
+            
+            **Compliance with [https://search.es-doc.org/ ES-doc experiment definition]**: <list any items of non-compliance>
+            
+            == Quality assurance checklists
+            
+            Please read the [wiki:ExperimentGuidance guidance notes] before completing the table below. Where an ensemble member is copied from a previously-reviewed job for the same experiment, only the first 6 rows of the second table are relevant: the rest can be ignored. 
+            
+            **Diagnostic configuration**:
+            || Task || Date completed || Notes || Reviewed by ||
+            || Suite metadata is compliant (experiment names, ensemble member ID, ...). See [wiki:CMIP6/RoseSuiteMetadata]  ||  ||  ||
+            || For Met Office runs, experiment added to CREM database. (ARCHER equivalent?) ||  ||  ||  ||
+            || More generally, all planned runs for this MIP have been added to CREM (should be reviewed before any MIP runs start) ||  ||  ||  ||
+            || Diagnostic setup appropriate for mip_convert ||  ||  || ||
+            || Test data for any new diagnostics has been produced and checked (see ExperimentGuidance#Runsetup) || ||  || ||
+            
+            **Science / technical review**:
+            || Task || Date completed || Notes || Reviewed by ||
+            || Diagnostic setup correctly configured for this experiment || || Only relevant if this experiment has specific diagnostic requirements  **todo: link to diagnostic documentation when ready** || ||
+            || Suite revision reviewed corresponds to that in suite description above ||  ||  ||  ||
+            || All suite changes committed to repository ||  || Suite revision reviewed: rNNNN ||  ||
+            || Changes from predecessor suite are documented and consistent with experimental design (refer to documentation for relevant MIP: [wiki:MIPDocumentation]) || || || ||
+            || The job is consistent with other related runs (e.g. other ensemble members, historical->SSP continuations) || || || ||
+            || Start and end dates are correct (see ExperimentGuidance#Runsetup) || || || ||
+            || Job descended from correct HadGEM3 / UKESM job: baseline configuration suite ID and revision (above) are listed under the appropriate MIP in [wiki:MIPDocumentation] || || This is to minimise the propagation of errors discovered after the first runs have begun. || ||
+            || If setup deviates from experimental protocol as defined by ES-doc, have these exceptions been recorded above? ||  ||  ||  ||
+            || Does suite use branches for any component model? || || || ||
+            || If so has this code been accepted for a future release of the component model? ||  || || ||
+            || Have all forcing datasets been reviewed? See ancil:wiki:CMIP6/ForcingData. || || || ||
+            
+            
+            
+            
+            
+            
+            == Data locations
+            
+            **Data in MOOSE:**
+            
+            
+            
+            == Comparable Jobs
+            
+            <Please list comparable jobs that this job should be compared against>
+            
+            == Run log
+            
+            <Please record all crashes, error messages, manual restarts (record model date and whether NRUN or CRUN) and investigations here>
+            
+            <If you change ancils mid-way through the run (requiring an NRUN), or NRUN for another reason, record here, and commit to the suite including a note on the start date. But when quoting the suite revision number above and for others to copy, quote the revision corresponding to the start of the run.>
+            
+            <For jobs running under the shared account, please also keep a record of who is looking after the job here>
+            
+            == Standard plots
+            
+            <Please put links to monitoring output (afterburner), Validation Notes, !AutoAssess, ocean_assess and further evaluation output here. Also list a brief summary of the main results of those plots in bullet point form>
+            
+            == Extra plots
+            
+            <Attach extra plots here>
