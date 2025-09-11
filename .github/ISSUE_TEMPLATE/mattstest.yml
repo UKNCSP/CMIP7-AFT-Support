@@ -2,10 +2,6 @@ name: "Matt's test issue"
 description: 'New Issue for new CMIP7 simulation'
 title: 'Issue: <Brief description here>'
 labels:
-    - HadGEM-GC5-N96ORCA1
-    - HadGEM-GC5-N640ORCA12
-    - UKESM1.3-N96ORCA1
-    - UKESM2.0-N96ORCA1
     
 body:
 
@@ -34,27 +30,28 @@ body:
     validations:
         required: true
     type: dropdown
+-   id: review_note
+    type: markdown
+    attributes:
+        value: Please do not change the information in the following text area as this is there to support review
 -   id: review_information
     type: textarea
     attributes:
         label: Review information
         value: |
-            = ROSE suite [roses-u:log:a/a/0/0/0 suite-id]: experiment name
-
-            Experiment ticket: #<NN>
+            Please leave this information as is when creating 
+            # ROSE suite [roses-u:log:a/a/0/0/0 suite-id]: experiment name
             
+            ## Description
             
-            **Owner:**
+            **Configuration**: Earth System/ Coupled AOIL/ Atmosphere-only <delete/ amend as appropriate>
             
-            == Description
-            
-            **Configuration:** Earth System/ Coupled AOIL/ Atmosphere-only <delete/ amend as appropriate>
-            
-            ||                          ||=Atmosphere=||= Land   =||= Ocean   =||= Sea ice    =||= Coupled  =||= Ocean BGC =||= Land Ice  =||  
-            || Scientific configuration || GA?.?      || GL?.?    || GO?.?     ||              ||            ||             ||             ||
-            || Code base                || UM?.?      || JULES?.? || NEMO?.?   ||  CICE?       || OASIS? vn? || MEDUSA?.?   || BISICLES?.? ||
-            || Horizontal resolution    || N?         || N?       || ORCA???   ||  n/a         ||            || ORCA???     || ?           ||
-            || Vertical resolution      || L?         || ? levels || L?        ||  n/a         ||            ||             ||             ||
+            |  | Atmosphere | Land   | Ocean   | Sea ice    | Coupled  | Ocean BGC | Land Ice  |
+            |---|---|---|---|---|---|---|---|
+            | Scientific configuration | GA?.?      | GL?.?    | GO?.?    |              |            |             |             |
+            | Code base                | UM?.?      | JULES?.? | NEMO?.?  |  CICE?       | OASIS? vn? | MEDUSA?.?   | BISICLES?.? |
+            | Horizontal resolution    | N?         | N?       | ORCA???  |  n/a         |            | ORCA???     | ?           |
+            | Vertical resolution      | L?         | ? levels | L?       |  n/a         |            |             |             |
             
             **Suite revision for start of run**:
             
@@ -76,48 +73,42 @@ body:
             
             **Compliance with [https://search.es-doc.org/ ES-doc experiment definition]**: <list any items of non-compliance>
             
-            == Quality assurance checklists
+            ## Quality assurance checklists
             
             Please read the [wiki:ExperimentGuidance guidance notes] before completing the table below. Where an ensemble member is copied from a previously-reviewed job for the same experiment, only the first 6 rows of the second table are relevant: the rest can be ignored. 
             
             **Diagnostic configuration**:
-            || Task || Date completed || Notes || Reviewed by ||
-            || Suite metadata is compliant (experiment names, ensemble member ID, ...). See [wiki:CMIP6/RoseSuiteMetadata]  ||  ||  ||
-            || For Met Office runs, experiment added to CREM database. (ARCHER equivalent?) ||  ||  ||  ||
-            || More generally, all planned runs for this MIP have been added to CREM (should be reviewed before any MIP runs start) ||  ||  ||  ||
-            || Diagnostic setup appropriate for mip_convert ||  ||  || ||
-            || Test data for any new diagnostics has been produced and checked (see ExperimentGuidance#Runsetup) || ||  || ||
+            | Task | Date completed | Notes | Reviewed by |
+            |---|---|---|---|
+            | Suite metadata is compliant (experiment names, ensemble member ID, ...). See [wiki:CMIP6/RoseSuiteMetadata]  | |  |
+            | For Met Office runs, experiment added to CREM database. (ARCHER equivalent?) |  |  |  |
+            | More generally, all planned runs for this MIP have been added to CREM (should be reviewed before any MIP runs start) |  |  |  |
+            | Diagnostic setup appropriate for mip_convert |  |  | |
+            | Test data for any new diagnostics has been produced and checked (see ExperimentGuidance#Runsetup) | |  | |
             
             **Science / technical review**:
-            || Task || Date completed || Notes || Reviewed by ||
-            || Diagnostic setup correctly configured for this experiment || || Only relevant if this experiment has specific diagnostic requirements  **todo: link to diagnostic documentation when ready** || ||
-            || Suite revision reviewed corresponds to that in suite description above ||  ||  ||  ||
-            || All suite changes committed to repository ||  || Suite revision reviewed: rNNNN ||  ||
-            || Changes from predecessor suite are documented and consistent with experimental design (refer to documentation for relevant MIP: [wiki:MIPDocumentation]) || || || ||
-            || The job is consistent with other related runs (e.g. other ensemble members, historical->SSP continuations) || || || ||
-            || Start and end dates are correct (see ExperimentGuidance#Runsetup) || || || ||
-            || Job descended from correct HadGEM3 / UKESM job: baseline configuration suite ID and revision (above) are listed under the appropriate MIP in [wiki:MIPDocumentation] || || This is to minimise the propagation of errors discovered after the first runs have begun. || ||
-            || If setup deviates from experimental protocol as defined by ES-doc, have these exceptions been recorded above? ||  ||  ||  ||
-            || Does suite use branches for any component model? || || || ||
-            || If so has this code been accepted for a future release of the component model? ||  || || ||
-            || Have all forcing datasets been reviewed? See ancil:wiki:CMIP6/ForcingData. || || || ||
+            | Task | Date completed | Notes | Reviewed by |
+            | Diagnostic setup correctly configured for this experiment | | Only relevant if this experiment has specific diagnostic requirements  **todo: link to diagnostic documentation when ready** | |
+            | Suite revision reviewed corresponds to that in suite description above |  |  |  |
+            | All suite changes committed to repository |  | Suite revision reviewed: rNNNN |  |
+            | Changes from predecessor suite are documented and consistent with experimental design (refer to documentation for relevant MIP: [wiki:MIPDocumentation]) | | | |
+            | The job is consistent with other related runs (e.g. other ensemble members, historical->SSP continuations) | | | |
+            | Start and end dates are correct (see ExperimentGuidance#Runsetup) | | | |
+            | Job descended from correct HadGEM3 / UKESM job: baseline configuration suite ID and revision (above) are listed under the appropriate MIP in [wiki:MIPDocumentation] | | This is to minimise the propagation of errors discovered after the first runs have begun. | |
+            | If setup deviates from experimental protocol as defined by ES-doc, have these exceptions been recorded above? |  |  |  |
+            | Does suite use branches for any component model? | | | |
+            | If so has this code been accepted for a future release of the component model? | | | |
+            | Have all forcing datasets been reviewed? See ancil:wiki:CMIP6/ForcingData. | | | |
             
-            
-            
-            
-            
-            
-            == Data locations
+            ## Data locations
             
             **Data in MOOSE:**
             
-            
-            
-            == Comparable Jobs
+            ## Comparable Jobs
             
             <Please list comparable jobs that this job should be compared against>
             
-            == Run log
+            ## Run log
             
             <Please record all crashes, error messages, manual restarts (record model date and whether NRUN or CRUN) and investigations here>
             
@@ -125,10 +116,10 @@ body:
             
             <For jobs running under the shared account, please also keep a record of who is looking after the job here>
             
-            == Standard plots
+            ## Standard plots
             
             <Please put links to monitoring output (afterburner), Validation Notes, !AutoAssess, ocean_assess and further evaluation output here. Also list a brief summary of the main results of those plots in bullet point form>
             
-            == Extra plots
+            ## Extra plots
             
             <Attach extra plots here>
