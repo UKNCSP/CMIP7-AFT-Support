@@ -87,6 +87,7 @@ body:
             
             **Science / technical review**:
             | Task | Date completed | Notes | Reviewed by |
+            |---|---|---|---|
             | Diagnostic setup correctly configured for this experiment | | Only relevant if this experiment has specific diagnostic requirements  **todo: link to diagnostic documentation when ready** | |
             | Suite revision reviewed corresponds to that in suite description above |  |  |  |
             | All suite changes committed to repository |  | Suite revision reviewed: rNNNN |  |
