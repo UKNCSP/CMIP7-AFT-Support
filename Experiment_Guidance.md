@@ -36,13 +36,13 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 
 ***the following needs updating from TRAC to github***
 
-1. Open a ticket for this experiment ("New Ticket" in the bar above) and set the fields as follows:
+1. Open an issue for this experiment and set the fields as follows:
    * Milestone -> MIP name (AerChemMIP, C4MIP, ...). Note: milestone "DECKhist" will be used to cover DECK, historical and spinup runs.
    * Component -> Model configuration
-   * Keywords -> Experiment name (from the [http://rawgit.com/WCRP-CMIP/CMIP6_CVs/master/src/CMIP6_experiment_id.html official list])
+   * Keywords -> Experiment name (from the official list of names)
    * Summary -> "<experiment name> for <model configuration>" or something meaningful to you.
-   * Description -> A longer summary of what the experiment is. There is space here to describe key aspects of this experiment, and any issues important to you or users of the run.
-   * The ticket will initially be "new". You should first "assign" it to whoever is going to set the experiment up, maybe yourself.  To access "assign" click on "Modify Ticket" at the bottom (not "Modify" at the top).  When you start work on setting up the job, select "start setup", which will change the ticket status to "setup_expt".
+   * Description -> A longer summary of what the experiment does. There is space here to describe key aspects of this experiment, and any issues important to you or users of the run.
+   * The issue will initially be assigned to no-one.  You should first assign it (using the "Assignees" panel at the left of the issue page) to whoever is going to set the experiment up, maybe yourself.  
 1. Copy standard UKESM / HadGEM3 job and configure for this experiment (following any documentation specific to your MIP, see [#design above]). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See standard job pages for [StandardJobs HadGEM3-GC3.1] and [UkesmDeckStandardJobs UKESM1]
    * If your MIP has several experiments sharing a similar experimental or diagnostic setup, you may wish to create one or more standard jobs for your MIP to act as the source suites for your MIP experiments, rather than copy all suites directly from the standard DECK jobs.
    * On creating the model suite, Rose will ask for mandatory metadata for CMIP6 runs, which is required by the data delivery system. More information at [wiki:CMIP6/RoseSuiteMetadata]; seek advice from the data delivery team if unsure of any of these options. 
