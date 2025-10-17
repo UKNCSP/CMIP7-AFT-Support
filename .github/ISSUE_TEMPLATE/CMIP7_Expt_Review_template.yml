@@ -1,0 +1,46 @@
+name: "CMIP7 Experiment Review"
+description: 'Documentation template to be completed for the Review of a CMIP7 Experiment'
+title: 'Issue: <Brief description here>'
+    
+body:
+
+-   id: Description 
+    type: textarea
+    attributes:
+        label: Issue Description
+        value: |
+            
+            Please provide details about your issue. 
+            Please fill out the Experiment Review Section Below.             
+            
+   
+-   id: review_note
+    type: markdown
+    attributes:
+        value: Please Do Not Change the information in the following text area as this is there to support review.
+        
+-   id: review_information
+    type: textarea
+    attributes:
+        label: Review Documentation
+        value: |
+            Please input the following information below.
+            
+            # ROSE suite being reviewed [roses-u:log:a/a/0/0/0 suite-id]: experiment name
+            
+            ## Description
+            
+            **Science / technical review**:
+            | Task | Date completed | Notes | Reviewed by |
+            |---|---|---|---|
+            | Diagnostic setup correctly configured for this experiment | | Only relevant if this experiment has specific diagnostic requirements  **todo: link to diagnostic documentation when ready** | |
+            | Suite revision reviewed corresponds to that in suite description above |  |  |  |
+            | All suite changes committed to repository |  | Suite revision reviewed: rNNNN |  |
+            | Changes from predecessor suite are documented and consistent with CMIP experimental design (refer to documentation for relevant MIP: [wiki:MIPDocumentation]) | | | |
+            | The job is consistent with other related runs (e.g. other ensemble members, historical->SSP continuations) | | | |
+            | Start and end dates are correct (see ExperimentGuidance#Runsetup) | | | |
+            | Job descended from correct HadGEM3 / UKESM job: baseline configuration suite ID and revision (above) are listed under the appropriate MIP in [wiki:MIPDocumentation] | | This is to minimise the propagation of errors discovered after the first runs have begun. | |
+            | If setup deviates from experimental protocol as defined by ES-doc, have these exceptions been recorded above? |  |  |  |
+            | Does suite use branches for any component model? | | | |
+            | If so has this code been accepted for a future release of the component model? | | | |
+            | Have all forcing datasets been reviewed? See [Forcing Data Pages](https://code.metoffice.gov.uk/trac/UKESM/wiki/UKESMAncilWG). | | | |
