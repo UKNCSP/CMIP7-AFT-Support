@@ -9,11 +9,10 @@ body:
     attributes:
         label: Issue Description
         value: |
-            ## General Issue Description
-
+            
             Please provide details about your issue. 
-            Please fill out the a [Jobs Description Template](https://github.com/UKNCSP/CMIP7-simulations/issues/new?template=new_jobs_page.yml)             
-            Reviewers to fill out [Reviewer Template] to be linked from here?
+            Please fill out the Jobs Information Section Below.             
+            Reviewers can then open a Sub-Issue from where they can fill in the "CMIP7_Expt_Review" template in order to complete the review.
 
 -   id: issue_type
     attributes:
@@ -28,14 +27,16 @@ body:
     validations:
         required: true
     type: dropdown
+    
 -   id: review_note
     type: markdown
     attributes:
         value: Please Do Not Change the information in the following text area as this is there to support review.
+        
 -   id: review_information
     type: textarea
     attributes:
-        label: Review information
+        label: Job Documentation
         value: |
             Please input the following information below.
             
@@ -78,25 +79,11 @@ body:
             **Diagnostic configuration**:
             | Task | Date completed | Notes | Reviewed by |
             |---|---|---|---|
-            | Suite metadata is compliant (experiment names, ensemble member ID, ...). See [wiki:CMIP6/RoseSuiteMetadata]  | |  |
-            | Diagnostic setup appropriate for mip_convert |  |  | |
+            | Suite metadata is compliant (experiment names, ensemble member ID, ...). See [ExperimentGuidance guidance notes](https://github.com/UKNCSP/CMIP7-simulations/blob/main/Experiment_Guidance.md)  | |  |
+            | Diagnostic setup appropriate for CDDS |  |  | |
             | Test data for any new diagnostics has been produced and checked (see [Experiment Guidance](https://github.com/UKNCSP/CMIP7-simulations/blob/main/Experiment_Guidance.md) Note ideally this link should point to a Run Set-Up part of page |  | |
             
-            **Science / technical review**:
-            | Task | Date completed | Notes | Reviewed by |
-            |---|---|---|---|
-            | Diagnostic setup correctly configured for this experiment | | Only relevant if this experiment has specific diagnostic requirements  **todo: link to diagnostic documentation when ready** | |
-            | Suite revision reviewed corresponds to that in suite description above |  |  |  |
-            | All suite changes committed to repository |  | Suite revision reviewed: rNNNN |  |
-            | Changes from predecessor suite are documented and consistent with CMIP experimental design (refer to documentation for relevant MIP: [wiki:MIPDocumentation]) | | | |
-            | The job is consistent with other related runs (e.g. other ensemble members, historical->SSP continuations) | | | |
-            | Start and end dates are correct (see ExperimentGuidance#Runsetup) | | | |
-            | Job descended from correct HadGEM3 / UKESM job: baseline configuration suite ID and revision (above) are listed under the appropriate MIP in [wiki:MIPDocumentation] | | This is to minimise the propagation of errors discovered after the first runs have begun. | |
-            | If setup deviates from experimental protocol as defined by ES-doc, have these exceptions been recorded above? |  |  |  |
-            | Does suite use branches for any component model? | | | |
-            | If so has this code been accepted for a future release of the component model? | | | |
-            | Have all forcing datasets been reviewed? See [Forcing Data Pages](https://code.metoffice.gov.uk/trac/UKESM/wiki/UKESMAncilWG). | | | |
-            
+                       
             ## Data locations
             
             **Data in MOOSE:**
