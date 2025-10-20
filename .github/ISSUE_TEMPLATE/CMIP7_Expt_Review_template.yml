@@ -46,13 +46,12 @@ body:
             | Have all forcing datasets been reviewed? See [Forcing Data Pages](https://code.metoffice.gov.uk/trac/UKESM/wiki/UKESMAncilWG). | | | |
 
 -   id: review_note
-    type: input
     attributes:
         label: Review Assessment
         description: Are you happy to approve this Experiment?
         options:
-            - Yes
-            - No
+            - "Yes"
+            - "No"
     validations:
         required: true
     type: dropdown
