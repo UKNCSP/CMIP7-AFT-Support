@@ -50,8 +50,8 @@ body:
         label: Review Assessment
         description: Are you happy to approve this Experiment?
         options:
-            - "Yes"
-            - "No"
+            - "Approved"
+            - "Not Approved"
     validations:
         required: true
     type: dropdown
