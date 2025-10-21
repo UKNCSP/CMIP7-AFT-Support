@@ -1,0 +1,37 @@
+name: "Access Request Form"
+description: "Request access to private repositories"
+title: "[Access Request] <!-- Your Name Here -->"
+labels: ["access-request"]
+assignees:
+  - stephenpring
+  - jprb-walton
+  - jmulcahy11
+  - matthew-mizielinski
+
+body:
+  - type: input
+    id: UserId
+    attributes:
+      label: "Github User name"
+    validations:
+      required: true
+  - type: input
+    id: Name
+    attributes:
+      label: "Name"
+    validations:
+      required: true
+  - type: input
+    id: institution
+    attributes:
+      label: "Institution"
+    validations:
+      required: true      
+  - type: input
+    id: Reason
+    attributes:
+      label: "Purpose of access request"
+      description: "Briefly explain which repositories you would like access to and why"
+      placeholder: "e.g. I need access to XYZ repository to contribute documentation and share simulation results"
+    validations:
+      required: true
