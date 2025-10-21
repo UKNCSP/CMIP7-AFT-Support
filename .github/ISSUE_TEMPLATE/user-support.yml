@@ -1,0 +1,50 @@
+name: "General User Support"
+description: "Submit a question or request help with using this repository"
+title: "[Support] <!-- Brief summary of your issue -->"
+labels: ["support"]
+assignees:
+  - stephenpring
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🛠️ General Support Request
+
+        Thank you for reaching out! This form is for general questions, troubleshooting, or help using this repository.
+
+        > ℹ️ **Please note:** Support is offered on a best-effort basis by the maintainers and contributors. While we’ll do our best to assist you, responses may be delayed or limited depending on availability and the nature of your request.
+
+  - type: input
+    id: summary
+    attributes:
+      label: "Brief Summary"
+      description: "Provide a short summary of your issue or question"
+      placeholder: "Enter a brief summary of your issue"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: "Details"
+      description: "Feel free to describe your issue or question in as much detail as possible. Include any relevant error messages, steps you've tried, or context.."
+      placeholder: "Include logs, screenshots, or links to relevant documentation if possible."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: "How urgent is this issue?"
+      options:
+        - Low – I'm just exploring or curious
+        - Medium – It’s blocking some work
+        - High – It’s blocking critical work
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: "Environment (optional)"
+      description: "Where are you running this? (e.g. JASMIN, local machine)"
+      placeholder: "e.g. JASMIN, Met Office SPICE"
