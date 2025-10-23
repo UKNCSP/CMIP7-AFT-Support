@@ -3,7 +3,6 @@ description: "Submit a question or request help with using this repository"
 title: "[Support] <!-- Brief summary of your issue -->"
 labels: ["support"]
 assignees:
-  - stephenpring
 
 body:
   - type: markdown
@@ -13,7 +12,7 @@ body:
 
         Thank you for reaching out! This form is for general questions, troubleshooting, or help using this repository.
 
-        > ℹ️ **Please note:** Support is offered on a best-effort basis by the maintainers and contributors. While we’ll do our best to assist you, responses may be delayed or limited depending on availability and the nature of your request.
+        > ℹ️ **Please note:** Support is offered on a best-effort basis by the maintainers and contributors. While we’ll do our best to assist you, responses may be delayed or limited depending on availability and the nature of your request. There is no dedicated support team, so assistance is provided as time and resources allow.
 
   - type: input
     id: summary
