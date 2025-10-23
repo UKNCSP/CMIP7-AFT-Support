@@ -2,8 +2,6 @@ name: "General User Support"
 description: "Submit a question or request help with using this repository"
 title: "[Support] <!-- Brief summary of your issue -->"
 labels: ["support"]
-assignees:
-  - stephenpring
 
 body:
   - type: markdown
