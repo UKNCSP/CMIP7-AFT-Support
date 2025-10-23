@@ -45,9 +45,6 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 1. Copy the standard UKESM1.3 / HadGEM3-GC5 job and configure for this experiment (following any documentation specific to your MIP, see [Experimental design](#experimental-design-configuration) above). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See standard job pages for UKESM1.3 and HadGEM3-GC5.
    * If your MIP has several experiments sharing a similar experimental or diagnostic setup, you may wish to create one or more standard jobs for your MIP to act as the source suites for your MIP experiments, rather than copy all suites directly from the standard DECK jobs.
    * Ensure start and end dates are exactly right; if the experiment protocol specifies only start and end years, begin on the 1st Jan in the start year (not the preceding or subsequent Sep or Dec) and continue until at least 1st Jan of the end year plus 1 (i.e. 01/01/2015 for an 1850-2014 historical run).
-  
-   ***the following needs updating from TRAC to github***
-
    * Archiving restarts: For HadGEM3, the run should archive restarts in both January and December of each year. The January restarts are to allow other CMIP runs to branch from this run, while the December dumps allow a cleaner restart of the climate meaning system if there are problems with the run. For UKESM1, only January restarts are required, because it uses an alternative method to generate seasonal and annual means.
    * For Met Office runs archiving to MASS, select the appropriate duplex setting (`non_duplexed_set`) in the postproc app, under "Post Processing - common settings -> Moose Archiving". In general duplexing is recommended for production runs (`non_duplexed_set=false`).
    * For UKESM1, some experiments (e.g. DECK runs) should reset the diagnostic ocean ideal tracers (age of water and CFCs) when the experiment starts. For guidance, where you are branching from the piControl (historical, 1%CO2, 4xCO2) OMIP recommends resetting these diagnostic tracers at the start of the run so that the fields are independent of the branch point; on the other hand if you are branching from a historical or similar run it makes sense to inherit the fields of the parent run and continue their evolution. This resetting is activated by the switch `INIT_CFC_AGE=true` in `rose-suite.conf`. See note below on changing this to false after the run starts.
@@ -55,7 +52,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 1. Configure [wiki:Diagnostics/Setup diagnostic setup]
    * If making additions to the standard jobs, check the rules for data layout as required by [the data delivery system](../../../CDDS-CMIP7-mappings?tab=readme-ov-file#usage-profiles-and-output-frequency).  For example:
        * different frequencies must not share the same diagnostic files, or “STASH stream” for the UM.
-       * all output variables 
+       * all output variables must only contain diagnostics from the same usage profile/stream; CDDS cannot extract data from multiple streams to produce a single variable.
    * If diagnostics are explicitly required at 00:00 on the first day of the run, i.e. the zeroth timestep (e.g. for regional model boundary conditions), seek advice from the UKESM core group.
 1. Commit all changes you make to your rose suite. No runs should be based on suites with uncommitted working copies, as this leads to mistakes when copying and reviewing suites.
 1. Ask the diagnostic reviewer to sign off the diagnostic setup checklist on the !ExperimentDocumentation page.
@@ -65,8 +62,8 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    Aspects to check:
    * Plot the fields and verify that they are scientifically sensible and that packing precision is appropriate. This is a very time-consuming and tedious task and may need to be distributed across several people.
    * Is the model responding appropriately to any new forcing?
-   * For some runs where significant changes are being made to the diagnostic setup, it will be appropriate to process a sample of data with //mip_convert// to check that the output can be delivered to the ESGF. **todo: Instructions will be linked here.**
-1. When you are confident that everything is working and you have completed the QA checklist in the !ExperimentDocumentation page, assign the ticket to your main reviewer for "setup review".
+   * For some runs where significant changes are being made to the diagnostic setup, it will be appropriate to process a sample of data with `CDDS` to check that the output can be delivered to the ESGF.
+1. When you are confident that everything is working and you have completed the QA checklist in the !ExperimentDocumentation page, assign the ticket to your main reviewer for `setup review`.
    * In practice it will save time if the reviewer also looks at the model suite before you produce any test data.
    * Clearly the thoroughness of the review should vary from one experiment to another: if this experiment is very similar to another which has already been reviewed, then it may be sufficient to check that the job contains the expected differences. The DECK runs will be reviewed most thoroughly, and for individual MIPs it may make sense to have an in-depth review for the first experiments followed by a lighter touch for subsequent runs.
 1. If the reviewer finds a problem they should reject the ticket and assign it back to you for setup. When they are happy they should approve assign to you for running and monitoring.
@@ -75,19 +72,19 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 ## Run and monitor
 
 1. As soon as the run starts, create a branch of the suite called "running" and switch your working copy to point to this branch:
-{{{
+```
 cd ${HOME}/roses/<suite-id>
 fcm branch-create running
 fcm switch running
-}}}
+```
    This ensures that any changes you need to make to the suite mid-run, such as restarting with an NRUN after a failure, are not copied into descendant suites. In other words, if someone copies your suite they get the suite as it started running, not some mid-run initialisation state. 
    * This also allows you to apply technical fixes or additional diagnostics which you want to be picked up by subsequent runs but not affect your running job, by committing these to the trunk and not the running branch:
-{{{
+```
 fcm switch trunk
 ...make changes
 fcm commit
 fcm switch running
-}}}
+```
 1. Apply some changes to the running branch which will only take effect if you need to restart with an NRUN (i.e `rose suite-run` without `--restart`) mid-way through the run:
  * Set the top-level option `BITCOMP_NRUN=true` (suite conf -> Run Initialisation and Cycling) to ensure that an NRUN will bit-compare with a previous CRUN.
  * Switch off atmosphere reconfiguration if it is on.
