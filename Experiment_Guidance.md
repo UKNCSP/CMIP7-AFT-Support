@@ -2,6 +2,11 @@
 
 In running experiments for a production experiment, the devil is in the detail. There are many things which can go wrong, with expensive consequences. However, there are steps which can be taken to minimise errors, and these are listed below. The motivation for these is science assurance: tedious but important tasks to ensure that the experiments (and the science based on them) is publishable and repeatable.
 
+ [Experimental design](#experimental-design-configuration)
+ [Run setup](#run-setup)
+ [Run and monitor](#run-and-monitor)
+ [Process and deliver](#process-and-deliver)
+ 
 The [Run setup](#run-setup) section outlines how to use git issues for each experiment to support quality assurance.
 
 
@@ -34,7 +39,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    
 1. Ensure that ensemble member, forcing and realisation identifiers ("ripf" values) have been defined. 
 
-1. Open an issue for this experiment and set the fields as follows:
+1. Open a `CMIP7-simulations` issue for this experiment and set the fields as follows:
    * Milestone -> MIP name (AerChemMIP, C4MIP, ...). Note: milestone "DECKhist" will be used to cover DECK, historical and spinup runs.
    * Component -> Model configuration
    * Keywords -> Experiment name (from the official list of names)
@@ -98,7 +103,6 @@ fcm switch running
 1. If you have to abandon a run completely, delete the data from the MASS archive to ensure it is not subsequently used in error.
 1. (Met Office runs) When the run is complete, thin restart dumps in MASS to reduce tape usage, retaining 1st December dumps only every 10 years. Retention of 1st January dumps depends on whether other CMIP7 runs (which must start on 1st Jan) will branch from your run, and from what points. If you are unsure, please consult your MIP lead, or the group of UK MIP leads.
 1. When the run is complete, assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery).
-
 
 ## Process and deliver
 
