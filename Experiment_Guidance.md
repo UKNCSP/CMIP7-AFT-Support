@@ -39,13 +39,16 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    
 1. Ensure that ensemble member, forcing and realisation identifiers ("ripf" values) have been defined. 
 
-1. Open a [CMIP7 Experiment Documentation issue](../..//issues/new/choose) for this experiment and set the fields as follows:
-   * Milestone -> MIP name (AerChemMIP, C4MIP, ...). Note: milestone "DECKhist" will be used to cover DECK, historical and spinup runs.
-   * Component -> Model configuration
-   * Keywords -> Experiment name (from the official list of names)
-   * Summary -> \<experiment name\> for \<model configuration\> or something meaningful to you.
-   * Description -> A longer summary of what the experiment does. There is space here to describe key aspects of this experiment, and any issues important to you or users of the run.
-   * The issue will initially be assigned to no-one.  You should first assign it (using the "Assignees" panel at the right of the issue page) to whoever is going to set the experiment up, maybe yourself.  
+1. Open a [CMIP7 Experiment Documentation issue](../..//issues/new/choose?template=CMIP7_experiment_documentation_template.yml) for this experiment fill in the `Job Documentation` text in the template with:
+   * ROSE suite id and experiment name.
+   * Description -> A summary of what the experiment does. There is space here to describe key aspects of this experiment, and any issues important to you or users of the run.
+   * Configuration -> details of basic model parameters
+   * Suite revision for start of run, baseline configuration, predecessor suite id and any changes, initial conditions, dates covered by run and any other configuration specific settings.
+   * The issue will initially be assigned to no-one.  You should first assign it (using the "Assignees" panel at the right of the issue page) to whoever is going to review the suite.  This automatically generates a github notification for them, but it might be helpful to also email your reviewer directly in case they miss this.
+   * The reviewer should then create a [CMIP7 Experiment Review issue](../..//issues/new/choose?template=?template=CMIP7_Expt_Review_template.yml) as a `sub-issue` within your current Experiment Documentation issue.  They should fill in all parts of this review and sign their approval or otherwise when completed, before assigning the review issue back to you.
+Reviewer should then assign back to person running the simulation.
+   * Include links and record any issues/failures in the documentation issue while the simulation is running.
+   * When the simulation has completed, document its end in the issue and close it.
 
 1. Copy the standard UKESM1.3 / HadGEM3-GC5 job and configure for this experiment (following any documentation specific to your MIP, see [Experimental design](#experimental-design-configuration) above). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See standard job pages for UKESM1.3 and HadGEM3-GC5.
    * If your MIP has several experiments sharing a similar experimental or diagnostic setup, you may wish to create one or more standard jobs for your MIP to act as the source suites for your MIP experiments, rather than copy all suites directly from the standard DECK jobs.
