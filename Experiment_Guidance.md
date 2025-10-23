@@ -2,7 +2,7 @@
 
 In running experiments for a production experiment, the devil is in the detail. There are many things which can go wrong, with expensive consequences. However, there are steps which can be taken to minimise errors, and these are listed below. The motivation for these is science assurance: tedious but important tasks to ensure that the experiments (and the science based on them) is publishable and repeatable.
 
-| foo |  |
+| Section | Contents  |
 | --- | --- |
 | [Experimental design](#experimental-design-configuration) | Procedure for overall experiment design |
 | [Run setup](#run-setup) | How to set up a run for a given experiment |
