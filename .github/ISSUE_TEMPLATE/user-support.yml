@@ -40,9 +40,3 @@ body:
         - High – It’s blocking critical work
     validations:
       required: true
-  - type: input
-    id: environment
-    attributes:
-      label: "Environment (optional)"
-      description: "Where are you running this? (e.g. JASMIN, local machine)"
-      placeholder: "e.g. JASMIN, Met Office SPICE"
