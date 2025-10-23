@@ -8,8 +8,6 @@ In running experiments for a production experiment, the devil is in the detail. 
 | [Run setup](#run-setup) | How to set up a run for a given experiment |
 | [Run and monitor](#run-and-monitor) | Starting the run, monitoring progress and handling errors | 
 | [Process and deliver](#process-and-deliver) | Processing output from run and delivering data |
- 
-The [Run setup](#run-setup) section outlines how to use git issues for each experiment to support quality assurance.
 
 
 ## Experimental design configuration
@@ -41,7 +39,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    
 1. Ensure that ensemble member, forcing and realisation identifiers ("ripf" values) have been defined. 
 
-1. Open a `CMIP7-simulations` issue for this experiment and set the fields as follows:
+1. Open a [CMIP7 Experiment Documentation issue](../..//issues/new/choose) for this experiment and set the fields as follows:
    * Milestone -> MIP name (AerChemMIP, C4MIP, ...). Note: milestone "DECKhist" will be used to cover DECK, historical and spinup runs.
    * Component -> Model configuration
    * Keywords -> Experiment name (from the official list of names)
