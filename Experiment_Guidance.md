@@ -28,7 +28,6 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * Outline discussions on HPC resources required for your experiments should begin as early as possible. 
    * Once you have decided which experiments to run, estimate how much resource (CPU time and disk space) all of your runs will require, and ensure that you have access to what you need. For Met Office HPC, agree which queue you will use.
 
-
 ## Run setup
 
 1. Identify reviewers for job setup and arrange likely review dates in advance (to prevent delays due to reviewers being otherwise engaged). You will need a main reviewer (normally another scientist working on your MIP) and a diagnostic reviewer.
@@ -39,7 +38,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * Milestone -> MIP name (AerChemMIP, C4MIP, ...). Note: milestone "DECKhist" will be used to cover DECK, historical and spinup runs.
    * Component -> Model configuration
    * Keywords -> Experiment name (from the official list of names)
-   * Summary -> "<experiment name>" for <model configuration>" or something meaningful to you.
+   * Summary -> \<experiment name\> for \<model configuration\> or something meaningful to you.
    * Description -> A longer summary of what the experiment does. There is space here to describe key aspects of this experiment, and any issues important to you or users of the run.
    * The issue will initially be assigned to no-one.  You should first assign it (using the "Assignees" panel at the left of the issue page) to whoever is going to set the experiment up, maybe yourself.  
 
