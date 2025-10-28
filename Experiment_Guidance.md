@@ -5,7 +5,7 @@ In running experiments for a production experiment, the devil is in the detail. 
 | Section | Contents  |
 | --- | --- |
 | [Experimental design](#experimental-design-configuration) | Procedure for overall experiment design |
-| [Run setup](#run-setup) | How to set up a run for a given experiment |
+| [Run setup](#run-setup) | How to set up a run for a given experiment using github issues |
 | [Run and monitor](#run-and-monitor) | Starting the run, monitoring progress and handling errors | 
 | [Process and deliver](#process-and-deliver) | Processing output from run and delivering data |
 
@@ -23,19 +23,21 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * Check whether the model is able to produce your key diagnostics, and code up if essential.
    * Document any decisions on diagnostics which you decide not to include or for which you have to deviate from what has been requested. 
 1. Download / create forcing data.
-   * Liaise with providers in advance of official release if possible to minimise surprises.
-   * If you are relying on another MIP to generate forcing data for you, ensure that they are aware of this. 
-   * Avoid breaking up timeseries forcing files (historical/scenario) into e.g. 20-year chunks. It is better to split files by variable than by time period.
-   * Ensure that the temporal coverage of forcing data extends beyond the start and end of the runs which will use it. The model interpolates between time records to its present time, so needs a valid field after the end of the run and before the start.
-   * Ensure that all input files are in central locations, not user space.
-   * There should be some technical and scientific review of all forcing data created for CMIP7 runs, just as for the model jobs themselves.  The MIP should decide what is appropriate, as long as any science decisions made in defining the forcing are documented.
+   * Preindustrial, historical and scenario forcing data needed by UKESM and HadGEM-GC5 based models is being processed and reviewed by the (Ancillary Working Group)[https://code.metoffice.gov.uk/trac/UKESM/wiki/UKESMAncilWG]
+   * Ensure that all input ancillary files are in central CMIP7 locations, and not in an individuals user space.
+   * Outside of the above key forcing datasets if you need anything bespoke you will likely have to generate this yourself
+     * Liaise with providers in advance of official release if possible to minimise surprises.
+     * If you are relying on another MIP to generate forcing data for you, ensure that they are aware of this. 
+     * Avoid breaking up timeseries forcing files (historical/scenario) into e.g. 20-year chunks. It is better to split files by variable than by time period.
+     * Ensure that the temporal coverage of forcing data extends beyond the start and end of the runs which will use it. The model interpolates between time records to its present time, so needs a valid field after the end of the run and before the start.
+     * There should be some technical and scientific review of all forcing data created for CMIP7 runs, just as for the model jobs themselves.  The MIP should decide what is appropriate, as long as any science decisions made in defining the forcing are documented.
 1. Schedule HPC resources.
    * Outline discussions on HPC resources required for your experiments should begin as early as possible. 
    * Once you have decided which experiments to run, estimate how much resource (CPU time and disk space) all of your runs will require, and ensure that you have access to what you need. For Met Office HPC, agree which queue you will use.
 
 ## Run setup
 
-1. Identify reviewers for job setup and arrange likely review dates in advance (to prevent delays due to reviewers being otherwise engaged). You will need a main reviewer (normally another scientist working on your MIP) and a diagnostic reviewer.
+1. Identify reviewers for your job setup and arrange likely review dates in advance (to prevent delays due to reviewers being otherwise engaged). You will need a main reviewer (normally another scientist working on your MIP) and a diagnostic reviewer.
    
 1. Ensure that ensemble member, forcing and realisation identifiers ("ripf" values) have been defined. 
 
@@ -50,12 +52,12 @@ Reviewer should then assign back to person running the simulation.
    * Include links and record any issues/failures in the documentation issue while the simulation is running.
    * When the simulation has completed, document its end in the issue and close it.
 
-1. Copy the standard UKESM1.3 / HadGEM3-GC5 job and configure for this experiment (following any documentation specific to your MIP, see [Experimental design](#experimental-design-configuration) above). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See standard job pages for UKESM1.3 and HadGEM3-GC5.
+1. Copy the standard UKESM1.3 / HadGEM3-GC5 job and configure for this experiment (following any documentation specific to your MIP, see [Experimental design](#experimental-design-configuration) above). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See _standard job pages for UKESM1.3 and HadGEM3-GC5_.
    * If your MIP has several experiments sharing a similar experimental or diagnostic setup, you may wish to create one or more standard jobs for your MIP to act as the source suites for your MIP experiments, rather than copy all suites directly from the standard DECK jobs.
    * Ensure start and end dates are exactly right; if the experiment protocol specifies only start and end years, begin on the 1st Jan in the start year (not the preceding or subsequent Sep or Dec) and continue until at least 1st Jan of the end year plus 1 (i.e. 01/01/2015 for an 1850-2014 historical run).
    * Archiving restarts: For HadGEM3, the run should archive restarts in both January and December of each year. The January restarts are to allow other CMIP runs to branch from this run, while the December dumps allow a cleaner restart of the climate meaning system if there are problems with the run. For UKESM1, only January restarts are required, because it uses an alternative method to generate seasonal and annual means.
    * For Met Office runs archiving to MASS, select the appropriate duplex setting (`non_duplexed_set`) in the postproc app, under "Post Processing - common settings -> Moose Archiving". In general duplexing is recommended for production runs (`non_duplexed_set=false`).
-   * For UKESM1, some experiments (e.g. DECK runs) should reset the diagnostic ocean ideal tracers (age of water and CFCs) when the experiment starts. For guidance, where you are branching from the piControl (historical, 1%CO2, 4xCO2) OMIP recommends resetting these diagnostic tracers at the start of the run so that the fields are independent of the branch point; on the other hand if you are branching from a historical or similar run it makes sense to inherit the fields of the parent run and continue their evolution. This resetting is activated by the switch `INIT_CFC_AGE=true` in `rose-suite.conf`. See note below on changing this to false after the run starts.
+   * For UKESM1.3, some experiments (e.g. DECK runs) should reset the diagnostic ocean ideal tracers (age of water and CFCs) when the experiment starts. For guidance, where you are branching from the piControl (historical, 1%CO2, 4xCO2) OMIP recommends resetting these diagnostic tracers at the start of the run so that the fields are independent of the branch point; on the other hand if you are branching from a historical or similar run it makes sense to inherit the fields of the parent run and continue their evolution. This resetting is activated by the switch `INIT_CFC_AGE=true` in `rose-suite.conf`. See note below on changing this to false after the run starts.
 1. From the ticket, link to a new wiki page: `wiki:runs/u-aa000` where u-aa000 is your suite ID. This will create a grey link with a question mark, which you should click to create the page. Select "!ExperimentDocumentation" from the drop-down menu, then "Create this page". Complete this wiki page with the details of your experiment; ensure that you include the ticket number at the top of the page, as this will create a link back to your ticket.
 1. Configure [wiki:Diagnostics/Setup diagnostic setup]
    * If making additions to the standard jobs, check the rules for data layout as required by [the data delivery system](../../../CDDS-CMIP7-mappings?tab=readme-ov-file#usage-profiles-and-output-frequency).  For example:
