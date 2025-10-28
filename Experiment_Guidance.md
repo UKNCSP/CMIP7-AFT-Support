@@ -9,6 +9,8 @@ In running experiments for a production experiment, the devil is in the detail. 
 | [Run and monitor](#run-and-monitor) | Starting the run, monitoring progress and handling errors | 
 | [Process and deliver](#process-and-deliver) | Processing output from run and delivering data |
 
+> [!NOTE]
+> This guidance is set-up with the main purpose of providing guidance on running Assessment Fast Track simulations. It may be of use however of course to the Community MIPs and they are welcome to use our best practice. We have generalised content where appropriate with this in mind.
 
 ## Experimental design configuration
 
