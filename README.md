@@ -1,6 +1,6 @@
-# CMIP7-support
+# CMIP7 Assessment Fast Track Support 
 
-This repository serves as a central hub for requesting access to private CMIP7 and CDDS related repositories and for reporting general CMIP7 user support issues. 
+This repository serves as a central hub for requesting access to private CMIP7 and CDDS related repositories and for reporting general CMIP7 user support issues when running Assessment Fast Track Simulations. 
 
 For more information, please refer to the [wiki](https://github.com/UKNCSP/CMIP7-support/wiki).
 
