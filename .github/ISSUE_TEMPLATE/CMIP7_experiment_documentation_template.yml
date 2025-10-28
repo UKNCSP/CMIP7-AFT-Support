@@ -11,7 +11,7 @@ body:
         value: |
             
             Please provide details about your issue. 
-            Please fill out the Jobs Information Section Below.             
+            Please fill out the Jobs Description Section Below.             
             Reviewers can then open a Sub-Issue from where they can fill in the "CMIP7_Expt_Review" template in order to complete the review.
 
 -   id: issue_type
@@ -19,10 +19,10 @@ body:
         label: Issue Type
         description: What kind of issue are you reporting?
         options:
-            - Bug Report
             - New CMIP Experiment
             - Documentation
             - Data Quality
+            - Bug Report
             - Other
     validations:
         required: true
@@ -40,9 +40,9 @@ body:
         value: |
             Please input the following information below.
             
-            # ROSE suite [roses-u:log:a/a/0/0/0 suite-id]: experiment name
+            # ROSE suite [rose suiteid](https://code.metoffice.gov.uk/trac/roses-u/browser/a/a/0/0/0/): experiment name
             
-            ## Description
+            ## Experiment Description
             
             **Configuration**: Earth System/ Coupled AOIL/ Atmosphere-only <delete/ amend as appropriate>
             
