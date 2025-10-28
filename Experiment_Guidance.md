@@ -102,21 +102,24 @@ fcm switch trunk
 fcm commit
 fcm switch running
 ```
-1. Apply some changes to the running branch which will only take effect if you need to restart with an NRUN (i.e `rose suite-run` without `--restart`) mid-way through the run:
- * Set the top-level option `BITCOMP_NRUN=true` (`suite conf -> Run Initialisation and Cycling`) to ensure that an NRUN will bit-compare with a previous CRUN.
- * Switch off atmosphere reconfiguration if it is on.
- * (For UKESM only) Set `INIT_CFC_AGE=false` in rose-suite.conf. This will ensure that the ocean idealised tracers (such as age of water) are not reset by an NRUNs. This is the MEDUSA equivalent of switching off reconfiguration.
-1. There should be automatic monitoring of the completeness of the output data, and the MASS/JASMIN archive. For Met Office runs, the standard HadGEM3-GC5 and UKESM1.3 jobs have an archive_integrity task (in the postproc app) which does this.
-   * If there is a gap in the archive and the data is no longer on the HPC, restart from the last archived dumps before the gap and continue from there. Both HadGEM3-GC5 and UKESM1.3 have been demonstrated to give identical results after such a restart, but unless the run has progressed a long way it is safest to immediately revert to this point and overwrite previously archived data (rather than wait until the end of the run and fill gaps with short runs).
-   * Document (on the !ExperimentDocumentation issue page) any gaps found and how they were filled.
-1. Don't add diagnostics mid-run without consulting the data delivery experts first. It could make it very difficult to deliver data from the run.
-1. Avoid splitting a single experiment across more than one suite (e.g. by running the first 50 years under one suite and the remainder under another). The resulting disconnect in the archived data will cause difficulties for data delivery, and delay the publication of your output on the ESGF. If you feel that you need to switch to a new rose suite in the middle of an experiment, please ask for advice first: most requirements can be met with the use of suite branches without copying to a new suite.
-1. If there are any model failures, record (on the !ExperimentDocumentation page) the model date and timestep, as well as how the failure was fixed. This is critical in order to be able to reproduce the run at a later date if required. 
-1. If you have to abandon a run completely, delete the data from the MASS archive to ensure it is not subsequently used in error.
-1. (Met Office runs) When the run is complete, thin restart dumps in MASS to reduce tape usage, retaining 1st December dumps only every 10 years. Retention of 1st January dumps depends on whether other CMIP7 runs (which must start on 1st Jan) will branch from your run, and from what points. If you are unsure, please consult your MIP lead, or the group of UK MIP leads.
-1. When the run is complete, assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery).
+2. If you need to restart as an NRUN:
+   * For UKESM1.3 suite you just need to set the following switch **[INPUT SWITCH NAME]**. This retrieves all required startdata for the suite and sets appropriate configuration settings (such as turning off reconfiguration) to ensure the NRUN bit compares with a previous CRUN.
+   * (For UKESM only) Set `INIT_CFC_AGE=false` in rose-suite.conf. This will ensure that the ocean idealised tracers (such as age of water) are not reset by an NRUNs. This is the MEDUSA equivalent of switching off reconfiguration (**or is this handled by Marc's switch?**).
+   * For HadGEM3-GC5, you will need to apply the following changes manually to the running branch  (**i.e `rose suite-run` without `--restart` ADD cylc 8 option**) mid-way through the run:
+   * Set the top-level option `BITCOMP_NRUN=true` (`suite conf -> Run Initialisation and Cycling`) to ensure that an NRUN will bit-compare with a previous CRUN.
+   * Switch off atmosphere reconfiguration if it is on.
+ 
+3. There should be automatic monitoring of the completeness of the output data, and the MASS/JASMIN archive. For Met Office runs, the standard HadGEM3-GC5 and UKESM1.3 jobs have an archive_integrity task (in the postproc app) which does this.
+   * If there is a gap in the archive and the data is no longer on the HPC, the archive_intetrity task should fail and you should restart from the last archived dumps before the gap and continue from there. Both HadGEM3-GC5 and UKESM1.3 have been demonstrated to give identical results after such a restart, but unless the run has progressed a long way it is safest to immediately revert to this point and overwrite previously archived data (rather than wait until the end of the run and fill gaps with short runs).
+   * Document (on the Experiment Documentation issue page) any gaps found and how they were filled.
+4. Don't add diagnostics mid-run without consulting the data delivery experts first. It could make it very difficult to deliver data from the run.
+5. Avoid splitting a single experiment across more than one suite (e.g. by running the first 50 years under one suite and the remainder under another). The resulting disconnect in the archived data will cause difficulties for data delivery, and delay the publication of your output on the ESGF. If you feel that you need to switch to a new rose suite in the middle of an experiment, please ask for advice first: most requirements can be met with the use of suite branches without copying to a new suite.
+6. If there are any model failures, record (on the Experiment Documentation issue) the model date and timestep, as well as how the failure was fixed. This is critical in order to be able to reproduce the run at a later date if required. 
+7. If you have to abandon a run completely, delete the data from the MASS archive to ensure it is not subsequently used in error.
+8. (Met Office runs) When the run is complete, thin restart dumps in MASS to reduce tape usage, retaining 1st December dumps only every 10 years. Retention of 1st January dumps depends on whether other CMIP7 runs (which must start on 1st Jan) will branch from your run, and from what points. If you are unsure, please consult your MIP lead.
+9. When the run is complete, **assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery)**.
 
-## Process and deliver
+## Process and deliver [UNDER REVIEW]
 
 1. Add a comment to the experiment ticket noting that you are happy that the simulations are scientifically fit for processing.
 
