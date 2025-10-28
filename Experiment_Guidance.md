@@ -66,13 +66,12 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * For Met Office runs archiving to MASS, select the appropriate duplex setting (`non_duplexed_set`) in the postproc app, under "Post Processing - common settings -> Moose Archiving". In general duplexing is recommended for production runs (`non_duplexed_set=false`).
    * For UKESM1.3, some experiments (e.g. DECK runs) should reset the diagnostic ocean ideal tracers (age of water and CFCs) when the experiment starts. For guidance, where you are branching from the piControl (historical, 1%CO2, 4xCO2) OMIP recommends resetting these diagnostic tracers at the start of the run so that the fields are independent of the branch point; on the other hand if you are branching from a historical or similar run it makes sense to inherit the fields of the parent run and continue their evolution. This resetting is activated by the switch `INIT_CFC_AGE=true` in `rose-suite.conf`. See note below on changing this to false after the run starts.
      
-1. Configure [wiki:Diagnostics/Setup diagnostic setup]
+1. Configure the Diagnostic Setup [wiki:Diagnostics/Setup diagnostic setup]
    * If making additions to the standard jobs, check the rules for data layout as required by [the data delivery system](../../../CDDS-CMIP7-mappings?tab=readme-ov-file#usage-profiles-and-output-frequency).  For example:
        * different frequencies must not share the same diagnostic files, or “STASH stream” for the UM.
        * all output variables must only contain diagnostics from the same usage profile/stream; CDDS cannot extract data from multiple streams to produce a single variable.
    * If diagnostics are explicitly required at 00:00 on the first day of the run, i.e. the zeroth timestep (e.g. for regional model boundary conditions), seek advice from the relevant configuration owner/MIP Lead.
 1. Commit all changes you make to your rose suite. No runs should be based on suites with uncommitted working copies, as this leads to mistakes when copying and reviewing suites.
-1. Ask the Reviewer to sign off the diagnostic setup checklist in the CMIP7 Experiment Review template (see below for details on how to set this up).
 1. Output some test data for e.g. 1 year of the run.
    * For the first DECK runs, all fields will be checked and domain experts and MIP leads will be asked to contribute.
    * For other MIPs, new/altered diagnostics should be checked thoroughly, as should any fields of particular importance to that MIP.
@@ -84,6 +83,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 2. The reviewer should then create a [CMIP7 Experiment Review issue](../..//issues/new/choose?template=?template=CMIP7_Expt_Review_template.yml) as a `sub-issue` within your current Experiment Documentation issue.  They should fill in all parts of this review and sign their approval or otherwise when completed, before assigning the review issue back to you for running and monitoring.
    * In practice it will save time if the reviewer also looks at the model suite before you produce any test data.
    * Clearly the thoroughness of the review should vary from one experiment to another: if this experiment is very similar to another which has already been reviewed, then it may be sufficient to check that the job contains the expected differences. The DECK runs will be reviewed most thoroughly, and for individual MIPs it may make sense to have an in-depth review for the first experiments followed by a lighter touch for subsequent runs.
+   * The Reviewer needs to sign off the diagnostic setup checklist as detailed in the CMIP7 Experiment Review template.
 1. If the reviewer finds a problem they should reject the ticket and assign it back to you for setup. When they are happy they should approve assign to you for running and monitoring and the sub-issue can be closed.
 
 ## Run and monitor
