@@ -31,7 +31,16 @@ body:
     id: Reason
     attributes:
       label: "Purpose of access request"
-      description: "Briefly explain which repositories you would like access to and why"
+      description: |
+  Access to the following private repositories is available:
+  
+  - CMIP7-documentation
+  - CMIP7-AFT-Simulations
+  - CDDS-simulation-metadata
+  - CDDS-CMIP7-processing
+  
+If you would like general access to all repositories, please indicate that below.
+  Otherwise, please specify which repositories you would like access to.
       placeholder: "e.g. I need access to XYZ repository to contribute documentation and share simulation results"
     validations:
       required: true
