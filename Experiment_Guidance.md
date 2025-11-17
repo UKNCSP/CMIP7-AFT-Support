@@ -12,13 +12,13 @@ In running experiments for a production experiment, the devil is in the detail. 
 > [!NOTE]
 > This guidance is set-up with the main purpose of providing guidance on running Assessment Fast Track simulations. It may be of use however of course to the Community MIPs and they are welcome to use our best practice. We have generalised content where appropriate with this in mind.
 
-## Experimental design configuration
+## General experimental design considerations
 
 Although the experimental protocol is set out by the MIP, in practice there are model-specific decisions which need to be made, to interpret and implement the design for our model.
 
 1. Interpret experiment design specification. 
    * Discuss non-trivial choices with other MIP leads to ensure consistency between MIPs where appropriate. 
-   * Document decisions on the CMIP7 github repository; for example, you could create a wiki page for your MIP. 
+   * Document decisions on a CMIP7 github repository; for example, you could create a wiki page for your MIP. 
 1. Develop any MIP-specific code
    * Lodge code in relevant model trunk (UM, NEMO, ...) to ensure that all CMIP7 code has been through appropriate review, and for future-proofing. 
 1. Define diagnostic setup.
@@ -37,13 +37,12 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * Outline discussions on HPC resources required for your experiments should begin as early as possible. 
    * Once you have decided which experiments to run, estimate how much resource (CPU time and disk space) all of your runs will require, and ensure that you have access to what you need. For Met Office HPC, agree which queue you will use.
 
-## Run setup
+## Run setup and review
 
-1. Identify reviewers for your job setup and arrange likely review dates in advance (to prevent delays due to reviewers being otherwise engaged). You will need a main reviewer (normally another scientist working on your MIP) and a diagnostic reviewer.
-   
+1. Identify a reviewer for your job setup and arrange likely review dates in advance (to prevent delays due to reviewers being otherwise engaged).    
 1. Ensure that ensemble member, forcing and realisation identifiers ("ripf" values) have been defined. 
 
-1. Open a [CMIP7 Experiment Documentation issue](../..//issues/new/choose?template=CMIP7_experiment_documentation_template.yml) for this experiment
+1. Open a [CMIP7 Experiment Documentation issue](https://github.com/UKNCSP/CMIP7-AFT-Simulations/blob/main/.github/ISSUE_TEMPLATE/CMIP7_experiment_documentation_template.yml) for this experiment
    * Fill in a brief description of your Experiment under `Issue Description`
    * Issue type: Select "New CMIP Experiment"
    * On the right hand side of page, set up your issue in the following way (Click on the cog symbol to make required edits):
@@ -58,35 +57,32 @@ Although the experimental protocol is set out by the MIP, in practice there are 
      * Suite revision for start of run, baseline configuration, predecessor suite id and any changes, initial conditions, dates covered by run and any other configuration specific settings.
      * Fill in the Quality Assurance Checklist and Note location of data 
      * Run Log: Include links and record any issues/failures in the documentation issue while the simulation is running.
-       
-   * When the simulation has completed, and everything has been reviewed appropriately, document its end in the issue and close it.
-
-1. Copy the standard UKESM1.3 / HadGEM3-GC5 job and configure the copied suite for this experiment (following any documentation specific to your MIP, see [Experimental design](#experimental-design-configuration) above). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See _standard job pages for UKESM1.3 and HadGEM3-GC5_.
-   * If your MIP has several experiments sharing a similar experimental or diagnostic setup, you may wish to create one or more standard jobs for your MIP to act as the source suites for your MIP experiments, rather than copy all suites directly from the standard DECK jobs.
-   * Ensure start and end dates are exactly right; if the experiment protocol specifies only start and end years, begin on the 1st Jan in the start year (not the preceding or subsequent Sep or Dec) and continue until at least 1st Jan of the end year plus 1 (i.e. 01/01/2022 for an 1850-2021 historical run).
+     
+  
+1. Copy the appropriate, standard UKESM1.3 or HadGEM3-GC5 job and configure the copied suite for this experiment (following any documentation specific to your MIP, see [Experimental design](#experimental-design-configuration) above). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See _standard job pages for UKESM1.3 and HadGEM3-GC5_. _**Note:** If your MIP has several experiments sharing a similar experimental or diagnostic setup, you may wish to create one or more standard jobs for your MIP to act as the source suites for your MIP experiments, rather than copy all suites directly from the standard DECK jobs._
+   * Ensure start and end dates are correct. If the experiment protocol specifies only start and end years, begin on the 1st Jan in the start year (not the preceding or subsequent Sep or Dec) and continue until at least 1st Jan of the end year plus 1 (i.e. 01/01/2022 for an 1850-2021 historical run).
    * Archiving restarts: For HadGEM3, the run should archive restarts in both January and December of each year. The January restarts are to allow other CMIP runs to branch from this run, while the December dumps allow a cleaner restart of the climate meaning system if there are problems with the run. For UKESM1, only January restarts are required, because it uses an alternative method to generate seasonal and annual means.
    * For Met Office runs archiving to MASS, select the appropriate duplex setting (`non_duplexed_set`) in the postproc app, under "Post Processing - common settings -> Moose Archiving". In general duplexing is recommended for production runs (`non_duplexed_set=false`).
    * For UKESM1.3, some experiments (e.g. DECK runs) should reset the diagnostic ocean ideal tracers (age of water and CFCs) when the experiment starts. For guidance, where you are branching from the piControl (historical, 1%CO2, 4xCO2) OMIP recommends resetting these diagnostic tracers at the start of the run so that the fields are independent of the branch point; on the other hand if you are branching from a historical or similar run it makes sense to inherit the fields of the parent run and continue their evolution. This resetting is activated by the switch `INIT_CFC_AGE=true` in `rose-suite.conf`. See note below on changing this to false after the run starts.
      
-1. Configure the Diagnostic Setup [wiki:Diagnostics/Setup diagnostic setup]
+1. Configure the Diagnostic Setup 
    * If making additions to the standard jobs, check the rules for data layout as required by [the data delivery system](../../../CDDS-CMIP7-mappings?tab=readme-ov-file#usage-profiles-and-output-frequency).  For example:
-       * different frequencies must not share the same diagnostic files, or “STASH stream” for the UM.
+       * different time frequencies must not share the same diagnostic files, or “STASH stream” for the UM.
        * all output variables must only contain diagnostics from the same usage profile/stream; CDDS cannot extract data from multiple streams to produce a single variable.
    * If diagnostics are explicitly required at 00:00 on the first day of the run, i.e. the zeroth timestep (e.g. for regional model boundary conditions), seek advice from the relevant configuration owner/MIP Lead.
-1. Commit all changes you make to your rose suite. No runs should be based on suites with uncommitted working copies, as this leads to mistakes when copying and reviewing suites.
+1. **Commit all changes you make to your rose suite**. No runs should be based on suites with uncommitted working copies, as this leads to mistakes when copying and reviewing suites.
 1. Output some test data for e.g. 1 year of the run.
    * For the first DECK runs, all fields will be checked and domain experts and MIP leads will be asked to contribute.
    * For other MIPs, new/altered diagnostics should be checked thoroughly, as should any fields of particular importance to that MIP.
-   Aspects to check:
    * Plot the fields and verify that they are scientifically sensible and that packing precision is appropriate. This is a very time-consuming and tedious task and may need to be distributed across several people.
    * Is the model responding appropriately to any new forcing?
    * For some runs where significant changes are being made to the diagnostic setup, it will be appropriate to process a sample of data with `CDDS` to check that the output can be delivered to the ESGF.
-1. When you are confident that everything is working and you have completed the QA checklist in the CMIP7 Experiment Documentation template, assign the issue to your main reviewer for `setup review` (using the "Assignees" panel at the right of the issue page, you will need the githubid of your reviewer). This should automatically generates a github notification for them, but it might be helpful to also email your reviewer directly in case they miss this.
-2. The reviewer should then create a [CMIP7 Experiment Review issue](../..//issues/new/choose?template=?template=CMIP7_Expt_Review_template.yml) as a `sub-issue` within your current Experiment Documentation issue.  They should fill in all parts of this review and sign their approval or otherwise when completed, before assigning the review issue back to you for running and monitoring.
-   * In practice it will save time if the reviewer also looks at the model suite before you produce any test data.
-   * Clearly the thoroughness of the review should vary from one experiment to another: if this experiment is very similar to another which has already been reviewed, then it may be sufficient to check that the job contains the expected differences. The DECK runs will be reviewed most thoroughly, and for individual MIPs it may make sense to have an in-depth review for the first experiments followed by a lighter touch for subsequent runs.
+1. When you are confident that everything is working and you have completed the QA checklist in the CMIP7 Experiment Documentation template, assign the issue to your reviewer to conduct the review (using the "Assignees" panel at the right of the issue page, you will need the githubid of your reviewer). This should automatically generates a github notification for them, but it might be helpful to also email your reviewer directly in case they miss this.
+1. The reviewer should then create a [CMIP7 Experiment Review issue](https://github.com/UKNCSP/CMIP7-AFT-Simulations/blob/main/.github/ISSUE_TEMPLATE/CMIP7_Expt_Review_template.yml) as a `sub-issue` within your current Experiment Documentation issue.  They should fill in all parts of this review template and sign their approval or otherwise when completed.
+   * _**Note:** In practice it will save time if the reviewer also looks at the model suite before you produce any test data._
+   * Clearly the thoroughness of the review should vary from one experiment to another. If this experiment is very similar to another which has already been reviewed, then it may be sufficient to check that the job contains the expected differences. The DECK runs will be reviewed most thoroughly, and for individual MIPs it may make sense to have an in-depth review for the first experiments followed by a lighter touch for subsequent runs.
    * The Reviewer needs to sign off the diagnostic setup checklist as detailed in the CMIP7 Experiment Review template.
-1. If the reviewer finds a problem they should reject the ticket and assign it back to you for setup. When they are happy they should approve assign to you for running and monitoring and the sub-issue can be closed.
+1. If the reviewer finds a problem they should reject the ticket and assign it back to you for setup. When they are happy they should approve and assign the main Experiment Issue back you for running and monitoring and the review sub-issue can be closed.
 
 ## Run and monitor
 
