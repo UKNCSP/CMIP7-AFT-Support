@@ -101,15 +101,18 @@ fcm commit
 fcm switch running
 ```
 2. If you need to restart as an NRUN:
-   * For UKESM1.3 suite you just need to set the following switch **[INPUT SWITCH NAME]**. This retrieves all required startdata for the suite and sets appropriate configuration settings (such as turning off reconfiguration) to ensure the NRUN bit compares with a previous CRUN.
-   * (For UKESM only) Set `INIT_CFC_AGE=false` in rose-suite.conf. This will ensure that the ocean idealised tracers (such as age of water) are not reset by an NRUNs. This is the MEDUSA equivalent of switching off reconfiguration (**or is this handled by Marc's switch?**).
-   * For HadGEM3-GC5, you will need to apply the following changes manually to the running branch  (**i.e `rose suite-run` without `--restart` ADD cylc 8 option**) mid-way through the run:
-   * Set the top-level option `BITCOMP_NRUN=true` (`suite conf -> Run Initialisation and Cycling`) to ensure that an NRUN will bit-compare with a previous CRUN.
-   * Switch off atmosphere reconfiguration if it is on.
+   * For UKESM1.3 suite:
+     *  Set the following switch `L_NRUN_RESTART=true` in the `rose-suite.conf` file. This retrieves all required startdata for the suite for the date set by the `BASIS` environment (so change this setting as needed to the correct model basis time for your restart (in your _running_ branch)) and turns off reconfiguration.
+     *  Set the top-level option `BITCOMP_NRUN=true` (`suite conf -> Run Initialisation and Cycling`) to ensure that the NRUN will bit-compare with a previous CRUN.
+     *  Set `INIT_CFC_AGE=false` in rose-suite.conf. This will ensure that the ocean idealised tracers (such as age of water) are not reset by an NRUNs. This is the MEDUSA equivalent of switching off reconfiguration 
+   * For HadGEM3-GC5 [**Alejandro add here**], you will need to apply the following changes manually to the running branch  (**i.e `rose suite-run` without `--restart` ADD cylc 8 option**) mid-way through the run:
+     * PUll back startdata
+     * Switch off atmosphere reconfiguration if it is on.
+     * Set the top-level option `BITCOMP_NRUN=true` (`suite conf -> Run Initialisation and Cycling`) to ensure that the NRUN will bit-compare with a previous CRUN.
  
 3. There should be automatic monitoring of the completeness of the output data, and the MASS/JASMIN archive. For Met Office runs, the standard HadGEM3-GC5 and UKESM1.3 jobs have an _archive_integrity_ task (in the postproc app) which does this.
-   * If there is a gap in the archive and the data is no longer on the HPC, the _archive_integrity_ task should fail and you should restart from the last archived dumps before the gap and continue from there. Both HadGEM3-GC5 and UKESM1.3 have been demonstrated to give identical results after such a restart, but unless the run has progressed a long way it is safest to immediately revert to this point and overwrite previously archived data (rather than wait until the end of the run and fill gaps with short runs).
-   * Document (on the Experiment Documentation issue page) any gaps found and how they were filled.
+   * If there is a gap in the archive and the data is no longer on the HPC, the _archive_integrity_ task should fail and you should restart from the last archived dumps before the gap and continue from there. Both HadGEM3-GC5 and UKESM1.3 have been demonstrated to give identical results after such a restart, therefore unless the run has progressed a long way it is safest to immediately revert to this point and overwrite previously archived data (rather than wait until the end of the run and fill gaps with short runs).
+   * Document (in the Experiment Documentation issue) any gaps found and how they were filled.
 4. Don't add diagnostics mid-run without consulting the data delivery experts first. It could make it very difficult to deliver data from the run.
 5. Avoid splitting a single experiment across more than one suite (e.g. by running the first 50 years under one suite and the remainder under another). The resulting disconnect in the archived data will cause difficulties for data delivery, and delay the publication of your output on the ESGF. If you feel that you need to switch to a new rose suite in the middle of an experiment, please ask for advice first: most requirements can be met with the use of suite branches without copying to a new suite.
 6. If there are any model failures, record (on the Experiment Documentation issue) the model date and timestep, as well as how the failure was fixed. This is critical in order to be able to reproduce the run at a later date if required. 
@@ -119,11 +122,5 @@ fcm switch running
 
 ## Process and deliver [UNDER REVIEW]
 
-1. Add a comment to the experiment ticket noting that you are happy that the simulations are scientifically fit for processing.
 
-7. **UKESM1 ONLY**: If your suite was not copied from the released UKESM1 suites, i.e. a copy of the `piControl` was taken, then there may be issues with missing files in the suite and missing variables in the MEDUSA output. To confirm whether this issue affects your suite look for the file `app/nemo_cice/file/field_def_bgc.xml`. If this file does not exist then certain ocean biogeochemistry variables will not be producible (without additional effort) and CDDS processing will fail until the steps documented [cdds:wiki:Prepare/ManualSuiteCorrections here].
-8. Ensure that any issues with particular variables in these suites are noted in [https://docs.google.com/spreadsheets/d/1Z3dtBnC-RI3Bmt92fZ-wz72CsGAFwb8z1nKaLSATEZI/edit#gid=0 the CMIP6 diagnostic special cases] spreadsheet.
-9. Change the status of the `ukcmip6` experiment ticket to `process_and_deliver` and contact [mailto:cdds@metoffice.gov.uk cdds] to arrange processing.
-
-The procedure required to configure CREM and process data is described in the [cdds:wiki:CDDSOperationalProcedure CDDS Operational Procedure]. Anyone who wishes to use CDDS should contact [mailto:matthew.mizielinski@metoffice.gov.uk Matthew Mizielinski] to discuss training.
 
