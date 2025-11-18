@@ -76,7 +76,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * For other MIPs, new/altered diagnostics should be checked thoroughly, as should any fields of particular importance to that MIP.
    * Plot the fields and verify that they are scientifically sensible and that packing precision is appropriate. This is a very time-consuming and tedious task and may need to be distributed across several people.
    * Is the model responding appropriately to any new forcing?
-   * For some runs where significant changes are being made to the diagnostic setup, it will be appropriate to process a sample of data with `CDDS` to check that the output can be delivered to the ESGF.
+   * For some runs where significant changes are being made to the diagnostic setup, it will be appropriate to process a sample of data with `CDDS` to check that the output can be delivered to the ESGF (consult @UKNCSP/cdds for advice).
 1. When you are confident that everything is working and you have completed the QA checklist in the CMIP7 Experiment Documentation template, assign the issue to your reviewer to conduct the review (using the "Assignees" panel at the right of the issue page, you will need the githubid of your reviewer). This should automatically generates a github notification for them, but it might be helpful to also email your reviewer directly in case they miss this.
 1. The reviewer should then create a [CMIP7 Experiment Review issue](https://github.com/UKNCSP/CMIP7-AFT-Simulations/blob/main/.github/ISSUE_TEMPLATE/CMIP7_Expt_Review_template.yml) as a `sub-issue` within your current Experiment Documentation issue.  They should fill in all parts of this review template and sign their approval or otherwise when completed.
    * _**Note:** In practice it will save time if the reviewer also looks at the model suite before you produce any test data._
@@ -122,5 +122,18 @@ fcm switch running
 
 ## Process and deliver [UNDER REVIEW]
 
+### Metadata recording
 
+To process data using CDDS metadata needs to be recorded for each workflow.  In CMIP6 this was recorded in the rose-suite.info files within the model suites, but for CMIP7 metadata will be recorded in files within the [CDDS Simulation Metadata Repository](https://github.com/UKNCSP/CDDS-simulation-metadata) *work in progress*.  A [registration form](https://github.com/UKNCSP/CDDS-simulation-metadata/issues/new?template=add_workflow_metadata.yml) will allow you to enter or update key metadata related to a workflow ID.
+Metadata for individual workflows will be stored within text files within this repository.
+
+### Processing preparation
+
+Provided metadata is recorded correctly tools will be provided to construct the *request configuration file*, the interface file used to control CDDS. Note that each run through of CDDS for a particular simulation (e.g. the UKESM1-3 piControl) will need to have a different *package id* within the request file to allow data and processing logs to be stored separately.
+
+The list of variables that are requested for CMIP7 production runs are described in the CMIP7 Data Request. A repository with text files detailing the variables requested and the ability of CDDS to produce them will be provided in due course.
+
+### Processing
+
+The operational procedure for CDDS will be linked here when ready.  CDDS processing typically consists of setting up the request file with appropriate metadata and settings/variables, executing two set up commands and then a cylc workflow is launched.  Monitoring this workflow for failures will be the primary task of the CDDS "driver", with support provided by the @UKNCSP/cdds team.
 
