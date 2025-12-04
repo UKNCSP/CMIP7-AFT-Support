@@ -83,6 +83,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * Clearly the thoroughness of the review should vary from one experiment to another. If this experiment is very similar to another which has already been reviewed, then it may be sufficient to check that the job contains the expected differences. The DECK runs will be reviewed most thoroughly, and for individual MIPs it may make sense to have an in-depth review for the first experiments followed by a lighter touch for subsequent runs.
    * The Reviewer needs to sign off the diagnostic setup checklist as detailed in the CMIP7 Experiment Review template.
 1. If the reviewer finds a problem they should reject the ticket and assign it back to you for setup. When they are happy they should approve and assign the main Experiment Issue back you for running and monitoring and the review sub-issue can be closed.
+1. It is recommended that users complete the metadata form (see first step in [Process and deliver](#process-and-deliver)) at this point.
 
 ## Run and monitor
 
@@ -120,20 +121,22 @@ fcm switch running
 8. (Met Office runs) When the run is complete, thin restart dumps in MASS to reduce tape usage, retaining 1st December dumps only every 10 years. Retention of 1st January dumps depends on whether other CMIP7 runs (which must start on 1st Jan) will branch from your run, and from what points. If you are unsure, please consult your MIP lead.
 9. When the run is complete, **assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery)**.
 
-## Process and deliver [UNDER REVIEW]
+## Process and deliver 
 
 ### Metadata recording
 
-To process data using CDDS metadata needs to be recorded for each workflow.  In CMIP6 this was recorded in the rose-suite.info files within the model suites, but for CMIP7 metadata will be recorded in files within the [CDDS Simulation Metadata Repository](https://github.com/UKNCSP/CDDS-simulation-metadata) *work in progress*.  A [registration form](https://github.com/UKNCSP/CDDS-simulation-metadata/issues/new?template=add_workflow_metadata.yml) will allow you to enter or update key metadata related to a workflow ID.
+To process data using CDDS metadata needs to be recorded for each workflow.  In CMIP6 this was recorded in the rose-suite.info files within the model suites, but for CMIP7 metadata will be recorded in files within the [CDDS Simulation Metadata Repository](https://github.com/UKNCSP/CDDS-simulation-metadata) in a form similar to that needed to run CDDS.  A [registration form](https://github.com/UKNCSP/CDDS-simulation-metadata/issues/new?template=add_workflow_metadata.yml) is available to enter or update key metadata related to a workflow ID.
 Metadata for individual workflows will be stored within text files within this repository.
 
-### Processing preparation
+Summary metadata for all simulations can be explored through [a searchable table](https://ukncsp.github.io/CDDS-simulation-metadata/).
+
+### Processing preparation [UNDER REVIEW]
 
 Provided metadata is recorded correctly tools will be provided to construct the *request configuration file*, the interface file used to control CDDS. Note that each run through of CDDS for a particular simulation (e.g. the UKESM1-3 piControl) will need to have a different *package id* within the request file to allow data and processing logs to be stored separately.
 
 The list of variables that are requested for CMIP7 production runs are described in the CMIP7 Data Request. A repository with text files detailing the variables requested and the ability of CDDS to produce them will be provided in due course.
 
-### Processing
+### Processing [UNDER REVIEW]
 
 The operational procedure for CDDS will be linked here when ready.  CDDS processing typically consists of setting up the request file with appropriate metadata and settings/variables, executing two set up commands and then a cylc workflow is launched.  Monitoring this workflow for failures will be the primary task of the CDDS "driver", with support provided by the @UKNCSP/cdds team.
 
