@@ -4,10 +4,11 @@ In running experiments for a production experiment, the devil is in the detail. 
 
 | Section | Contents  |
 | --- | --- |
-| [Experimental design](#experimental-design-configuration) | Procedure for overall experiment design |
-| [Run setup](#run-setup) | How to set up a run for a given experiment using github issues |
+| [Experimental design](#general-experimental-design-considerations) | Procedure for overall experiment design |
+| [Run setup](#run-setup-and-review) | How to set up a run for a given experiment using github issues |
 | [Run and monitor](#run-and-monitor) | Starting the run, monitoring progress and handling errors | 
 | [Process and deliver](#process-and-deliver) | Processing output from run and delivering data |
+| [Post submission maintenance of data](#post-submission-maintenance-of-data) | Maintenance of published data and issuing of or response to Errata |
 
 > [!NOTE]
 > This guidance is set-up with the main purpose of providing guidance on running Assessment Fast Track simulations. It may be of use however of course to the Community MIPs and they are welcome to use our best practice. We have generalised content where appropriate with this in mind.
@@ -83,20 +84,21 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * Clearly the thoroughness of the review should vary from one experiment to another. If this experiment is very similar to another which has already been reviewed, then it may be sufficient to check that the job contains the expected differences. The DECK runs will be reviewed most thoroughly, and for individual MIPs it may make sense to have an in-depth review for the first experiments followed by a lighter touch for subsequent runs.
    * The Reviewer needs to sign off the diagnostic setup checklist as detailed in the CMIP7 Experiment Review template.
 1. If the reviewer finds a problem they should reject the ticket and assign it back to you for setup. When they are happy they should approve and assign the main Experiment Issue back you for running and monitoring and the review sub-issue can be closed.
+1. It is recommended that users complete the metadata form (see first step in [Process and deliver](#process-and-deliver)) at this point.
 
 ## Run and monitor
 
 1. As soon as the run starts, create a branch of the suite called "running" and switch your working copy to point to this branch:
-```
+```bash
 cd ${HOME}/roses/<suite-id>
 fcm branch-create running
 fcm switch running
 ```
    This ensures that any changes you need to make to the suite mid-run, such as restarting with an NRUN after a failure, are not copied into descendant suites. In other words, if someone copies your suite they get the suite as it started running, not some mid-run initialisation state. 
    * This also allows you to apply technical fixes or additional diagnostics which you want to be picked up by subsequent runs but not affect your running job, by committing these to the trunk and not the running branch:
-```
+```bash
 fcm switch trunk
-...make changes
+# ...make changes
 fcm commit
 fcm switch running
 ```
@@ -113,6 +115,7 @@ fcm switch running
 3. There should be automatic monitoring of the completeness of the output data, and the MASS/JASMIN archive. For Met Office runs, the standard HadGEM3-GC5 and UKESM1.3 jobs have an _archive_integrity_ task (in the postproc app) which does this.
    * If there is a gap in the archive and the data is no longer on the HPC, the _archive_integrity_ task should fail and you should restart from the last archived dumps before the gap and continue from there. Both HadGEM3-GC5 and UKESM1.3 have been demonstrated to give identical results after such a restart, therefore unless the run has progressed a long way it is safest to immediately revert to this point and overwrite previously archived data (rather than wait until the end of the run and fill gaps with short runs).
    * Document (in the Experiment Documentation issue) any gaps found and how they were filled.
+   * Note that data **will not be delivered** where gaps in the archive, i.e. missing files, exist. There are specific tests within CDDS to check for this and it will be significantly simpler to ensure that this is correct before moving on to the *Process and deliver* stage.
 4. Don't add diagnostics mid-run without consulting the data delivery experts first. It could make it very difficult to deliver data from the run.
 5. Avoid splitting a single experiment across more than one suite (e.g. by running the first 50 years under one suite and the remainder under another). The resulting disconnect in the archived data will cause difficulties for data delivery, and delay the publication of your output on the ESGF. If you feel that you need to switch to a new rose suite in the middle of an experiment, please ask for advice first: most requirements can be met with the use of suite branches without copying to a new suite.
 6. If there are any model failures, record (on the Experiment Documentation issue) the model date and timestep, as well as how the failure was fixed. This is critical in order to be able to reproduce the run at a later date if required. 
@@ -120,20 +123,36 @@ fcm switch running
 8. (Met Office runs) When the run is complete, thin restart dumps in MASS to reduce tape usage, retaining 1st December dumps only every 10 years. Retention of 1st January dumps depends on whether other CMIP7 runs (which must start on 1st Jan) will branch from your run, and from what points. If you are unsure, please consult your MIP lead.
 9. When the run is complete, **assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery)**.
 
-## Process and deliver [UNDER REVIEW]
+## Process and deliver 
 
 ### Metadata recording
 
-To process data using CDDS metadata needs to be recorded for each workflow.  In CMIP6 this was recorded in the rose-suite.info files within the model suites, but for CMIP7 metadata will be recorded in files within the [CDDS Simulation Metadata Repository](https://github.com/UKNCSP/CDDS-simulation-metadata) *work in progress*.  A [registration form](https://github.com/UKNCSP/CDDS-simulation-metadata/issues/new?template=add_workflow_metadata.yml) will allow you to enter or update key metadata related to a workflow ID.
+To process data using CDDS metadata needs to be recorded for each workflow.  In CMIP6 this was recorded in the rose-suite.info files within the model suites, but for CMIP7 metadata will be recorded in files within the [CDDS Simulation Metadata Repository](https://github.com/UKNCSP/CDDS-simulation-metadata) in a form similar to that needed to run CDDS.  A [registration form](https://github.com/UKNCSP/CDDS-simulation-metadata/issues/new?template=add_workflow_metadata.yml) is available to enter or update key metadata related to a workflow ID.
 Metadata for individual workflows will be stored within text files within this repository.
 
-### Processing preparation
+Summary metadata for all simulations can be explored through [a searchable table](https://ukncsp.github.io/CDDS-simulation-metadata/).
+
+### Processing preparation [UNDER REVIEW]
 
 Provided metadata is recorded correctly tools will be provided to construct the *request configuration file*, the interface file used to control CDDS. Note that each run through of CDDS for a particular simulation (e.g. the UKESM1-3 piControl) will need to have a different *package id* within the request file to allow data and processing logs to be stored separately.
 
 The list of variables that are requested for CMIP7 production runs are described in the CMIP7 Data Request. A repository with text files detailing the variables requested and the ability of CDDS to produce them will be provided in due course.
 
-### Processing
+### Processing [UNDER REVIEW]
 
 The operational procedure for CDDS will be linked here when ready.  CDDS processing typically consists of setting up the request file with appropriate metadata and settings/variables, executing two set up commands and then a cylc workflow is launched.  Monitoring this workflow for failures will be the primary task of the CDDS "driver", with support provided by the @UKNCSP/cdds team.
+
+### Submission
+
+There is a submission process for data produced within the Met Office, which will involve the @UKNCSP/cdds team reviewing the processing documentation (TBC) and triggering the ingestion of data from MASS into the CEDA archive and ESGF index. Further details on the process will be added here when ready.
+
+## Post submission maintenance of data
+
+Once published the data produced will be held within the CEDA archive, either on tape or on disk depending on size and frequency of use, and linked to from the ESGF index.
+If issues are discovered with data these should be documented in the [Errata Service](https://errata.ipsl.fr/static/index.html). 
+If you need to issue an errata please contact the @UKNCSP/cdds for advice on how to proceed; Minor errors in metadata may just need to be documented, but genuine issues with data will 
+likely require retraction of the faulty data and reprocessing/replacement.
+
+**Change compared to CMIP6**: The Errata service now supports the issue of errata by data *users*, not just data publishers. If a user reports an errata the owning institution
+should be given two weeks to respond (in case this is a misunderstanding) before the issue becomes public.
 
