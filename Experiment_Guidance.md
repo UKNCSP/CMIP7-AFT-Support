@@ -89,27 +89,27 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 ## Run and monitor
 
 1. Before starting the run, create a branch of the workflow called "running" and switch your working copy to point to this branch:
-```bash
-cd ${HOME}/roses/<workflow-id>
-fcm branch-create running
-fcm switch running
-```
+    ```bash
+    cd ${HOME}/roses/<workflow-id>
+    fcm branch-create running
+    fcm switch running
+    ```
    This ensures that any changes you need to make to the workflow mid-run, such as restarting with an NRUN after a failure, are not copied into descendant workflows. In other words, if someone copies your workflow they get the workflow as it started running, not some mid-run initialisation state. 
    * This also allows you to apply technical fixes or additional diagnostics which you want to be picked up by subsequent runs but not affect your running job, by committing these to the trunk and not the running branch:
-```bash
-fcm switch trunk
-# ...make changes
-fcm commit
-fcm switch running
-```
+    ```bash
+    fcm switch trunk
+    # ...make changes
+    fcm commit
+    fcm switch running
+    ```
 1. All runs should be submitted from the CMIP7 shared account, in order to facilitate monitoring progress and re-starting the workflow in the event of a crash.  Log into the account:
-```bash
-xsudo -i -u cmip7runs
-```
-and enter your desktop password at the prompt.  Submit the workflow from its directory under your account:
-```bash
-cylc vip ~<your username>/roses/<workflow-id>
-```
+    ```bash
+    xsudo -i -u cmip7runs
+    ```
+    and enter your desktop password at the prompt.  Submit the workflow from its directory under your account:
+    ```bash
+    cylc vip ~<your username>/roses/<workflow-id>
+    ```
 1. If you need to restart as an NRUN:
    * For UKESM1.3 workflow:
      *  Set the following switch `L_NRUN_RESTART=true` in the `rose-suite.conf` file. This retrieves all required startdata for the workflow for the date set by the `BASIS` environment (so change this setting as needed to the correct model basis time for your restart (in your _running_ branch)) and turns off reconfiguration.
