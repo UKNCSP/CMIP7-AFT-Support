@@ -53,14 +53,14 @@ Although the experimental protocol is set out by the MIP, in practice there are 
      * **Projects:** Leave empty
      * **Milestone:** Please assign the appropriate CMIP7 AFT milestone to which this experiment applies.
    * Fill in the `Job Documentation` section in the template with:
-     * ROSE suite id and experiment name.
+     * ROSE workflow id and experiment name.
      * Configuration -> details of basic model configuration.
-     * Suite revision for start of run, baseline configuration, predecessor suite id and any changes, initial conditions, dates covered by run and any other configuration specific settings.
+     * Workflow revision for start of run, baseline configuration, predecessor workflow id and any changes, initial conditions, dates covered by run and any other configuration specific settings.
      * Fill in the Quality Assurance Checklist and Note location of data 
      * Run Log: Include links and record any issues/failures in the documentation issue while the simulation is running.
      
   
-1. Copy the appropriate, standard UKESM1.3 or HadGEM3-GC5 job and configure the copied suite for this experiment (following any documentation specific to your MIP, see [Experimental design](#experimental-design-configuration) above). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See _standard job pages for UKESM1.3 and HadGEM3-GC5_. _**Note:** If your MIP has several experiments sharing a similar experimental or diagnostic setup, you may wish to create one or more standard jobs for your MIP to act as the source suites for your MIP experiments, rather than copy all suites directly from the standard DECK jobs._
+1. Copy the appropriate, standard UKESM1.3 or HadGEM3-GC5 job and configure the copied workflow for this experiment (following any documentation specific to your MIP, see [Experimental design](#experimental-design-configuration) above). The standard (i.e. supported) jobs available for each model are 3 of the DECK experiments: piControl, historical and AMIP. See _standard job pages for UKESM1.3 and HadGEM3-GC5_. _**Note:** If your MIP has several experiments sharing a similar experimental or diagnostic setup, you may wish to create one or more standard jobs for your MIP to act as the source workflows for your MIP experiments, rather than copy all workflows directly from the standard DECK jobs._
    * Ensure start and end dates are correct. If the experiment protocol specifies only start and end years, begin on the 1st Jan in the start year (not the preceding or subsequent Sep or Dec) and continue until at least 1st Jan of the end year plus 1 (i.e. 01/01/2022 for an 1850-2021 historical run).
    * Archiving restarts: For HadGEM3, the run should archive restarts in both January and December of each year. The January restarts are to allow other CMIP runs to branch from this run, while the December dumps allow a cleaner restart of the climate meaning system if there are problems with the run. For UKESM1, only January restarts are required, because it uses an alternative method to generate seasonal and annual means.
    * For Met Office runs archiving to MASS, select the appropriate duplex setting (`non_duplexed_set`) in the postproc app, under "Post Processing - common settings -> Moose Archiving". In general duplexing is recommended for production runs (`non_duplexed_set=false`).
@@ -71,7 +71,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
        * different time frequencies must not share the same diagnostic files, or “STASH stream” for the UM.
        * all output variables must only contain diagnostics from the same usage profile/stream; CDDS cannot extract data from multiple streams to produce a single variable.
    * If diagnostics are explicitly required at 00:00 on the first day of the run, i.e. the zeroth timestep (e.g. for regional model boundary conditions), seek advice from the relevant configuration owner/MIP Lead.
-1. **Commit all changes you make to your rose suite**. No runs should be based on suites with uncommitted working copies, as this leads to mistakes when copying and reviewing suites.
+1. **Commit all changes you make to your workflow**. No runs should be based on workflows with uncommitted working copies, as this leads to mistakes when copying and reviewing workflows.
 1. Output some test data for e.g. 1 year of the run.
    * For the first DECK runs, all fields will be checked and domain experts and MIP leads will be asked to contribute.
    * For other MIPs, new/altered diagnostics should be checked thoroughly, as should any fields of particular importance to that MIP.
@@ -80,7 +80,7 @@ Although the experimental protocol is set out by the MIP, in practice there are 
    * For some runs where significant changes are being made to the diagnostic setup, it will be appropriate to process a sample of data with `CDDS` to check that the output can be delivered to the ESGF (consult @UKNCSP/cdds for advice).
 1. When you are confident that everything is working and you have completed the QA checklist in the CMIP7 Experiment Documentation template, assign the issue to your reviewer to conduct the review (using the "Assignees" panel at the right of the issue page, you will need the githubid of your reviewer). This should automatically generates a github notification for them, but it might be helpful to also email your reviewer directly in case they miss this.
 1. The reviewer should then create a [CMIP7 Experiment Review issue](https://github.com/UKNCSP/CMIP7-AFT-Simulations/blob/main/.github/ISSUE_TEMPLATE/CMIP7_Expt_Review_template.yml) as a `sub-issue` within your current Experiment Documentation issue.  They should fill in all parts of this review template and sign their approval or otherwise when completed.
-   * _**Note:** In practice it will save time if the reviewer also looks at the model suite before you produce any test data._
+   * _**Note:** In practice it will save time if the reviewer also looks at the workflow before you produce any test data._
    * Clearly the thoroughness of the review should vary from one experiment to another. If this experiment is very similar to another which has already been reviewed, then it may be sufficient to check that the job contains the expected differences. The DECK runs will be reviewed most thoroughly, and for individual MIPs it may make sense to have an in-depth review for the first experiments followed by a lighter touch for subsequent runs.
    * The Reviewer needs to sign off the diagnostic setup checklist as detailed in the CMIP7 Experiment Review template.
 1. If the reviewer finds a problem they should reject the ticket and assign it back to you for setup. When they are happy they should approve and assign the main Experiment Issue back you for running and monitoring and the review sub-issue can be closed.
@@ -88,13 +88,13 @@ Although the experimental protocol is set out by the MIP, in practice there are 
 
 ## Run and monitor
 
-1. As soon as the run starts, create a branch of the suite called "running" and switch your working copy to point to this branch:
+1. Before starting the run, create a branch of the workflow called "running" and switch your working copy to point to this branch:
 ```bash
-cd ${HOME}/roses/<suite-id>
+cd ${HOME}/roses/<workflow-id>
 fcm branch-create running
 fcm switch running
 ```
-   This ensures that any changes you need to make to the suite mid-run, such as restarting with an NRUN after a failure, are not copied into descendant suites. In other words, if someone copies your suite they get the suite as it started running, not some mid-run initialisation state. 
+   This ensures that any changes you need to make to the workflow mid-run, such as restarting with an NRUN after a failure, are not copied into descendant workflows. In other words, if someone copies your workflow they get the workflow as it started running, not some mid-run initialisation state. 
    * This also allows you to apply technical fixes or additional diagnostics which you want to be picked up by subsequent runs but not affect your running job, by committing these to the trunk and not the running branch:
 ```bash
 fcm switch trunk
@@ -102,9 +102,17 @@ fcm switch trunk
 fcm commit
 fcm switch running
 ```
-2. If you need to restart as an NRUN:
-   * For UKESM1.3 suite:
-     *  Set the following switch `L_NRUN_RESTART=true` in the `rose-suite.conf` file. This retrieves all required startdata for the suite for the date set by the `BASIS` environment (so change this setting as needed to the correct model basis time for your restart (in your _running_ branch)) and turns off reconfiguration.
+1. All runs should be submitted from the CMIP7 shared account, in order to facilitate monitoring progress and re-starting the workflow in the event of a crash.  Log into the account:
+```bash
+xsudo -i -u cmip7runs
+```
+and enter your desktop password at the prompt.  Submit the workflow from its directory under your account:
+```bash
+cylc vip ~<your username>/roses/<workflow-id>
+```
+1. If you need to restart as an NRUN:
+   * For UKESM1.3 workflow:
+     *  Set the following switch `L_NRUN_RESTART=true` in the `rose-suite.conf` file. This retrieves all required startdata for the workflow for the date set by the `BASIS` environment (so change this setting as needed to the correct model basis time for your restart (in your _running_ branch)) and turns off reconfiguration.
      *  Set the top-level option `BITCOMP_NRUN=true` (`suite conf -> Run Initialisation and Cycling`) to ensure that the NRUN will bit-compare with a previous CRUN.
      *  Set `INIT_CFC_AGE=false` in rose-suite.conf. This will ensure that the ocean idealised tracers (such as age of water) are not reset by an NRUNs. This is the MEDUSA equivalent of switching off reconfiguration 
    * For HadGEM3-GC5 [**Alejandro add here**], you will need to apply the following changes manually to the running branch  (**i.e `rose suite-run` without `--restart` ADD cylc 8 option**) mid-way through the run:
@@ -112,16 +120,16 @@ fcm switch running
      * Switch off atmosphere reconfiguration if it is on.
      * Set the top-level option `BITCOMP_NRUN=true` (`suite conf -> Run Initialisation and Cycling`) to ensure that the NRUN will bit-compare with a previous CRUN.
  
-3. There should be automatic monitoring of the completeness of the output data, and the MASS/JASMIN archive. For Met Office runs, the standard HadGEM3-GC5 and UKESM1.3 jobs have an _archive_integrity_ task (in the postproc app) which does this.
+1. There should be automatic monitoring of the completeness of the output data, and the MASS/JASMIN archive. For Met Office runs, the standard HadGEM3-GC5 and UKESM1.3 jobs have an _archive_integrity_ task (in the postproc app) which does this.
    * If there is a gap in the archive and the data is no longer on the HPC, the _archive_integrity_ task should fail and you should restart from the last archived dumps before the gap and continue from there. Both HadGEM3-GC5 and UKESM1.3 have been demonstrated to give identical results after such a restart, therefore unless the run has progressed a long way it is safest to immediately revert to this point and overwrite previously archived data (rather than wait until the end of the run and fill gaps with short runs).
    * Document (in the Experiment Documentation issue) any gaps found and how they were filled.
    * Note that data **will not be delivered** where gaps in the archive, i.e. missing files, exist. There are specific tests within CDDS to check for this and it will be significantly simpler to ensure that this is correct before moving on to the *Process and deliver* stage.
-4. Don't add diagnostics mid-run without consulting the data delivery experts first. It could make it very difficult to deliver data from the run.
-5. Avoid splitting a single experiment across more than one suite (e.g. by running the first 50 years under one suite and the remainder under another). The resulting disconnect in the archived data will cause difficulties for data delivery, and delay the publication of your output on the ESGF. If you feel that you need to switch to a new rose suite in the middle of an experiment, please ask for advice first: most requirements can be met with the use of suite branches without copying to a new suite.
-6. If there are any model failures, record (on the Experiment Documentation issue) the model date and timestep, as well as how the failure was fixed. This is critical in order to be able to reproduce the run at a later date if required. 
-7. If you have to abandon a run completely, delete the data from the MASS archive to ensure it is not subsequently used in error.
-8. (Met Office runs) When the run is complete, thin restart dumps in MASS to reduce tape usage, retaining 1st December dumps only every 10 years. Retention of 1st January dumps depends on whether other CMIP7 runs (which must start on 1st Jan) will branch from your run, and from what points. If you are unsure, please consult your MIP lead.
-9. When the run is complete, **assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery)**.
+1. Don't add diagnostics mid-run without consulting the data delivery experts first. It could make it very difficult to deliver data from the run.
+1. Avoid splitting a single experiment across more than one workflow (e.g. by running the first 50 years under one workflow and the remainder under another). The resulting disconnect in the archived data will cause difficulties for data delivery, and delay the publication of your output on the ESGF. If you feel that you need to switch to a new workflow in the middle of an experiment, please ask for advice first: most requirements can be met with the use of workflow branches without copying to a new workflow.
+1. If there are any model failures, record (on the Experiment Documentation issue) the model date and timestep, as well as how the failure was fixed. This is critical in order to be able to reproduce the run at a later date if required. 
+1. If you have to abandon a run completely, delete the data from the MASS archive to ensure it is not subsequently used in error.
+1. (Met Office runs) When the run is complete, thin restart dumps in MASS to reduce tape usage, retaining 1st December dumps only every 10 years. Retention of 1st January dumps depends on whether other CMIP7 runs (which must start on 1st Jan) will branch from your run, and from what points. If you are unsure, please consult your MIP lead.
+1. When the run is complete, **assign your ticket to the person who will process and deliver the data (if this is you, then assign to yourself for data delivery)**.
 
 ## Process and deliver 
 
