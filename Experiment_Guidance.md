@@ -110,6 +110,19 @@ Although the experimental protocol is set out by the MIP, in practice there are 
     ```bash
     cylc vip ~<your username>/roses/<workflow-id>
     ```
+1. While logged into the shared account, the progress of the run can be monitored using:
+    ```bash
+    cylc tui
+    ```
+   for the terminal user interface.  You can also use the graphical user interface:
+   ```bash
+   cylc gui
+   ```
+   which attempts to open the gui in a web browser; however, this will only work as long as you don't have any browser windows open that belong to a different user (i.e. your account).  You can't start `cylc gui` as yourself and change the user to `cmip7runs`, becaue it doesn't recognize that shared username with your password.
+   On the other hand, you can always use Cylc Review in a web browser to monitor progress of the shared account's workflows.  Open a browser and point to this URL:
+   ```bash
+   https://cylchub/services/cylc-review/suites?user=cmip7runs
+   ```
 1. If you need to restart as an NRUN:
    * For UKESM1.3 workflow:
      *  Set the following switch `L_NRUN_RESTART=true` in the `rose-suite.conf` file. This retrieves all required startdata for the workflow for the date set by the `BASIS` environment (so change this setting as needed to the correct model basis time for your restart (in your _running_ branch)) and turns off reconfiguration.
