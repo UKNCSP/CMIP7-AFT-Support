@@ -114,7 +114,9 @@ Although the experimental protocol is set out by the MIP, in practice there are 
     ```bash
     cylc tui
     ```
-   for the terminal user interface.  Type **h** to get help, **q** to close.  Scroll up and down the list of workflows using the up and down arrow keys; expand a workflow or task using the right arrow key; close it using the left arrow key.  Note the difference between a task that is running (denoted by a little blue square) and one that has completed (little green square).  While the cursor is over a workflow or task, use the **Return** key to open a context menu; useful options here include **reinstall-reload** to awaken a workflow which isn't running, and **trigger** to (re)start a task which has failed.  You can also use the graphical user interface:
+   for the terminal user interface.  Type **h** to get help, **q** to close.  Scroll up and down the list of workflows using the up and down arrow keys; expand a workflow or task using the right arrow key; close it using the left arrow key.  Note the difference between a task that is running (denoted by a little blue square) and one that has completed (little green square).  While the cursor is over a workflow or task, use the **Return** key to open a context menu; useful options here include **reinstall-reload** to awaken a workflow which isn't running, and **trigger** to (re)start a task which has failed.
+
+   You can also use the graphical user interface:
    ```bash
    cylc gui
    ```
