@@ -1,4 +1,4 @@
-# Guidance for quality assurance of CMIP7 experiments -- DRAFT
+# Guidance for quality assurance of CMIP7 experiments
 
 In running experiments for a production experiment, the devil is in the detail. There are many things which can go wrong, with expensive consequences. However, there are steps which can be taken to minimise errors, and these are listed below. The motivation for these is science assurance: tedious but important tasks to ensure that the experiments (and the science based on them) is publishable and repeatable.
 
