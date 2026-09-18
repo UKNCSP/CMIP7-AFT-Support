@@ -58,7 +58,7 @@ body:
     attributes:
       label: "Reason access is required"
       description: |
-        "Explain how the repository will support your work and what activities require access.
+        "Please provide a clear justification for access to UK CMIP7 private repositories including what CMIP activity/MIP you are involved in.
 
         Access to the following private repositories is available:
 
