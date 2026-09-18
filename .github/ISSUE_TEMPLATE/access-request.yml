@@ -1,7 +1,8 @@
 name: "Access Request Form"
 description: "Request access to private repositories"
 title: "[Access Request] <!-- Your Name Here -->"
-labels: ["access-request"]
+labels:
+  - access-request
 assignees:
   - stephenpring
   - jprb-walton
@@ -12,69 +13,68 @@ body:
   - type: input
     id: UserId
     attributes:
-      label: "Github User name"
+      label: "GitHub username"
     validations:
       required: true
+
   - type: input
     id: Name
     attributes:
       label: "Name"
     validations:
       required: true
-      
+
   - type: input
     id: institution
     attributes:
       label: "Institution"
     validations:
       required: true
-      
-- type: input
-  id: role
-  attributes:
-    label: "Role"
-  validations:
-    required: true
 
-- type: input
-  id: team
-  attributes:
-    label: "Team/Institution"
-  validations:
-    required: true
+  - type: input
+    id: role
+    attributes:
+      label: "Role"
+    validations:
+      required: true
 
-- type: input
-  id: project
-  attributes:
-    label: "Project"
-    description: "Project name and brief description"
-  validations:
-    required: true
+  - type: input
+    id: team
+    attributes:
+      label: "Team/Institution"
+    validations:
+      required: true
 
-- type: textarea
-  id: justification
-  attributes:
-    label: "Reason access is required"
-    description: "Explain how the repository supports your work and what activities require access."
-  validations:
-    required: true
-    
+  - type: input
+    id: project
+    attributes:
+      label: "Project"
+      description: "Project name and brief description"
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: "Reason access is required"
+      description: "Explain how the repository supports your work and what activities require access."
+    validations:
+      required: true
+
   - type: input
     id: Reason
     attributes:
       label: "Purpose of access request"
-      description: 
-      
+      description: |
         Please explain why access is required and include details of your role and project involvement.
 
         Access to the following private repositories is available:
-  
+
         - CMIP7-documentation
         - CMIP7-AFT-Simulations
         - CDDS-simulation-metadata
         - CDDS-CMIP7-processing
 
-        Please specify which repositories you would like access to, if you would like general access to all repositories, please indicate that.
-
+        Please specify which repositories you would like access to. If you would like general access to all repositories, please indicate that.
     validations:
       required: true
