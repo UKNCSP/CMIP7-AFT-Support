@@ -21,17 +21,49 @@ body:
       label: "Name"
     validations:
       required: true
+      
   - type: input
     id: institution
     attributes:
       label: "Institution"
     validations:
-      required: true      
+      required: true
+      
+- type: input
+  id: role
+  attributes:
+    label: "Role"
+  validations:
+    required: true
+
+- type: input
+  id: team
+  attributes:
+    label: "Team/Institution"
+  validations:
+    required: true
+
+- type: input
+  id: project
+  attributes:
+    label: "Project"
+    description: "Project name and brief description"
+  validations:
+    required: true
+
+- type: textarea
+  id: justification
+  attributes:
+    label: "Reason access is required"
+    description: "Explain how the repository supports your work and what activities require access."
+  validations:
+    required: true
+    
   - type: input
     id: Reason
     attributes:
       label: "Purpose of access request"
-      description: |
+      description: 
       
         Please explain why access is required and include details of your role and project involvement.
 
