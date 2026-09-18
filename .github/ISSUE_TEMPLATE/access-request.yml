@@ -57,7 +57,8 @@ body:
     id: justification
     attributes:
       label: "Reason access is required"
-      description: "Explain how the repository will support your work and what activities require access.
+      description: |
+        "Explain how the repository will support your work and what activities require access.
 
         Access to the following private repositories is available:
 
