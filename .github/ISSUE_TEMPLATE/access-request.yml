@@ -57,10 +57,7 @@ body:
     id: justification
     attributes:
       label: "Reason access is required"
-      description: "Explain how the repository supports your work and what activities require access."
-    validations:
-      required: true
-
+      description: "Explain how the repository will support your work and what activities require access.
 
         Access to the following private repositories is available:
 
@@ -69,6 +66,6 @@ body:
         - CDDS-simulation-metadata
         - CDDS-CMIP7-processing
 
-        Please specify which repositories you would like access to. If you would like general access to all repositories, please indicate that.
+        Please specify which repositories you would like access to. If you would like general access to all repositories, please indicate that."
     validations:
       required: true
